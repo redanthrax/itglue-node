@@ -9,6 +9,9 @@ workflow automation platform.
 
 [Installation](#installation)
 [Operations](#operations)
+[Credentials](#credentials)
+[Compatibility](#compatibility)  
+[Resources](#resources)  
 
 ## Installation
 
@@ -16,7 +19,7 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 in the n8n community nodes documentation.
 
 ## Operations
-- None
+- Organizations
 
 ## Credentials
 
