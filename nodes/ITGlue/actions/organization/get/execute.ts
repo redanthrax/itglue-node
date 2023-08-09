@@ -10,11 +10,26 @@ export async function get(
 	const requestMethod = 'GET';
 	let endpoint = 'organizations';
 	const body = {} as IDataObject;
+
+	//handle scenarios
 	const allorgs = this.getNodeParameter('allorgs', index, {}) as IDataObject;
 	if(!allorgs) {
 		const orgid = this.getNodeParameter('orgid', index, 0) as IDataObject;
 		endpoint = `organizations/${orgid}`
 	}
+
+	//filtering
+	const forgid = this.getNodeParameter('filters.forgid', index, {}) as IDataObject;
+	qs["filter[id]"] = forgid;
+
+	const forgname = this.getNodeParameter('filters.forgname', index, {}) as IDataObject;
+	qs["filter[name]"] = forgname;
+
+	const orgtype = this.getNodeParameter('filters.forgtype', index, {}) as IDataObject;
+	qs["filter[organization_type_id]"] = orgtype;
+
+	const orgstatus = this.getNodeParameter('filters.forgstatus', index, {}) as IDataObject;
+	qs["filter[organization_status_id]"] = orgstatus;
 
 	const responseData = await itglueRequest.call(this, index, requestMethod, endpoint, body, qs);
 	return this.helpers.returnJsonArray(responseData);

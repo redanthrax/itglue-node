@@ -20,7 +20,7 @@ export async function itglueRequest(
 	//TODO: add sorting here
 
 	//make request and return data
-	const responseData = await apiRequestAllItems.call(this, method, endpoint, qs, body);
+	const responseData = await apiRequestAllItems.call(this, method, endpoint, body, qs);
 	return responseData;
 }
 
@@ -50,11 +50,11 @@ export async function apiRequest(
 		options.body = body
 	}
 
-	console.log(options);
-
 	(options.headers as IDataObject)['X-API-KEY'] = `${creds.apiKey}`;
-	//wait for accelo, too fast and it gives you a token but you can't use it
+	//short delay to take it easy
 	await delay(200);
+
+	console.log(options);
 
 	//@ts-ignore
 	const responseData = (await this.helpers.request(options)) as IDataObject;
@@ -76,6 +76,10 @@ export async function apiRequestAllItems(
 		const resp = await apiRequest.call(this, method, endpoint, body, qs);
 		responseData = resp['data'] as IDataObject[];
 		returnData = returnData.concat(responseData);
+		if(responseData.length < qs["page[size]"]) {
+			break;
+		}
+
 		qs["page[number]"]++;
 	}
 	while(responseData.length > 0);

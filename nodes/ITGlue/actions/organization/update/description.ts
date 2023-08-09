@@ -1,51 +1,54 @@
 import { OrganizationProperties } from "../../interfaces";
 
-export const organizationGetDescription: OrganizationProperties = [
+export const organizationUpdateDescription: OrganizationProperties = [
 	{
-		displayName: 'All Organizations',
-		name: 'allorgs',
-		type: 'boolean',
-		description: 'Whether to get all organizations or just one',
-		default: true,
+		displayName: 'Organization ID',
+		name: 'orgid',
+		type: 'number',
+		default: '',
 		displayOptions: {
 			show: {
 				resource: ['organization'],
-				operation: ['get'],
+				operation: ['update'],
 			}
-		}
+		},
+		required: true,
 	},
 	{
-		displayName: 'Filters',
-		name: 'filters',
+		displayName: 'Attributes',
+		name: 'attributes',
 		type: 'collection',
-		placeholder: 'Add field',
 		default: {},
-		description: 'Filter the organization request',
+		placeholder: 'Update Attribute',
 		displayOptions: {
 			show: {
 				resource: ['organization'],
-				operation: ['get'],
-				allorgs: [
-					true
-				],
+				operation: ['update'],
 			},
 		},
 		options: [
 			{
-				displayName: 'Organization ID',
-				name: 'forgid',
-				type: 'number',
+				displayName: 'Name',
+				name: 'name',
+				type: 'string',
+				default: '',
+				placeholder: 'Organization Name'
+			},
+			{
+				displayName: 'Alert',
+				name: 'alert',
+				type: 'string',
 				default: '',
 			},
 			{
-				displayName: 'Organization Name',
-				name: 'forgname',
+				displayName: 'Description',
+				name: 'description',
 				type: 'string',
 				default: '',
 			},
 			{
 				displayName: 'Organization Type Name or ID',
-				name: 'forgtype',
+				name: 'organization_type_id',
 				type: 'options',
 				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>',
 				default: '',
@@ -55,30 +58,26 @@ export const organizationGetDescription: OrganizationProperties = [
 			},
 			{
 				displayName: 'Organization Status Name or ID',
-				name: 'forgstatus',
+				name: 'organization_status_id',
 				type: 'options',
 				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>',
 				default: '',
 				typeOptions: {
 					loadOptionsMethod: 'getOrgStatuses',
 				}
-			}
+			},
+			{
+				displayName: 'Quick Notes',
+				name: 'quick_notes',
+				type: 'string',
+				default: '',
+			},
+			{
+				displayName: 'Short Name',
+				name: 'short_name',
+				type: 'string',
+				default: '',
+			},
 		]
-	},
-	{
-		displayName: 'Organization',
-		name: 'orgid',
-		type: 'string',
-		description: 'Organization to retrieve with full notes',
-		default: '',
-		displayOptions: {
-			show: {
-				resource: ['organization'],
-				operation: ['get'],
-				allorgs: [
-					false
-				]
-			}
-		}
 	}
 ];
