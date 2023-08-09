@@ -30,7 +30,6 @@ export async function update(
 	}
 
 	body.data = data;
-	console.log(data);
 	const responseData =
 		await apiRequest.call(this, requestMethod, endpoint, body, qs);
 	return this.helpers.returnJsonArray(responseData);
