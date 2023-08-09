@@ -9,8 +9,8 @@ export class ITGlueApi implements ICredentialType {
 	documentationUrl = 'https://github.com/redanthrax/itglue-node';
 	properties: INodeProperties[] = [
 		{
-			displayName: 'Endpoint {endpoint}.itglue.com',
-			name: 'endpoint',
+			displayName: 'Region {region}.itglue.com',
+			name: 'region',
 			type: 'options',
 			default: 'api',
 			noDataExpression: true,

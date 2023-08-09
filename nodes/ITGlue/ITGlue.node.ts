@@ -1,10 +1,13 @@
 import { IExecuteFunctions } from 'n8n-core';
 
+import * as organization from './actions/organization';
+
 import {
 	INodeType,
 	INodeTypeDescription,
 } from 'n8n-workflow';
 
+import { loadOptions } from './methods';
 import { router } from './actions/router';
 
 export class ITGlue implements INodeType {
@@ -15,9 +18,9 @@ export class ITGlue implements INodeType {
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Utilize the ITGlue API',
+		description: 'Utilize the IT Glue API',
 		defaults: {
-			name: 'ITGlue',
+			name: 'IT Glue',
 		},
 		inputs: ['main'],
 		outputs: ['main'],
@@ -39,11 +42,19 @@ export class ITGlue implements INodeType {
 				name: 'resource',
 				type: 'options',
 				noDataExpression: true,
-				options: [],
-				default: '',
+				options: [
+					{
+						name: 'Organization',
+						value: 'organization',
+					},
+				],
+				default: 'organization',
 			},
+			...organization.description,
 		]
 	};
+
+	methods = { loadOptions };
 
 	async execute(this: IExecuteFunctions) {
 		return await router.call(this);

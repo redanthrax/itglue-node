@@ -5,7 +5,9 @@ import {
 		INodeExecutionData,
 } from 'n8n-workflow';
 
-import { ITGlue } from './interfaces'
+import { ITGlue } from './interfaces';
+
+import * as organization from './organization';
 
 export async function router(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 	const items = this.getInputData();
@@ -22,6 +24,9 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 
 		try {
 			switch(itglue.resource) {
+				case 'organization':
+					responseData = await organization[itglue.operation].execute.call(this, i);
+					break;
 				default:
 					break;
 			}
