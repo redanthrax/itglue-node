@@ -15,17 +15,17 @@ export async function update(
 
 	//get the org
 	const orgid = this.getNodeParameter('orgid', index, 0) as IDataObject;
-	const endpoint = `organizations/${orgid}`
+	const endpoint = `organizations/${orgid}`;
 
 	//construct the patch
-	data.type = "organizations"
+	data.type = "organizations";
 
 	//get attributes
 	const attributes = this.getNodeParameter('attributes', index, {}) as IDataObject;
 	if (Object.keys(attributes).length > 0) {
 		data.attributes = {} as IDataObject;
 		Object.keys(attributes).map(k => {
-			(data.attributes as any)[k] = attributes[k]
+			(data.attributes as IDataObject)[k] = attributes[k];
 		});
 	}
 

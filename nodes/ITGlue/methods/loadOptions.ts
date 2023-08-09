@@ -24,7 +24,7 @@ async function parseData(this: ILoadOptionsFunctions,
 	const returnData: INodePropertyOptions[] = [];
 	for (const data of responseData) {
 		returnData.push({
-			name:  (data.attributes as any).name as string,
+			name:  (data.attributes as IDataObject).name as string,
 			value: data.id as number,
 		});
 	}

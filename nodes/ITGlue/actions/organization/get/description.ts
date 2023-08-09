@@ -11,8 +11,8 @@ export const organizationGetDescription: OrganizationProperties = [
 			show: {
 				resource: ['organization'],
 				operation: ['get'],
-			}
-		}
+			},
+		},
 	},
 	{
 		displayName: 'Filters',
@@ -26,7 +26,7 @@ export const organizationGetDescription: OrganizationProperties = [
 				resource: ['organization'],
 				operation: ['get'],
 				allorgs: [
-					true
+					true,
 				],
 			},
 		},
@@ -51,7 +51,7 @@ export const organizationGetDescription: OrganizationProperties = [
 				default: '',
 				typeOptions: {
 					loadOptionsMethod: 'getOrgTypes',
-				}
+				},
 			},
 			{
 				displayName: 'Organization Status Name or ID',
@@ -61,9 +61,9 @@ export const organizationGetDescription: OrganizationProperties = [
 				default: '',
 				typeOptions: {
 					loadOptionsMethod: 'getOrgStatuses',
-				}
-			}
-		]
+				},
+			},
+		],
 	},
 	{
 		displayName: 'Organization',
@@ -76,9 +76,9 @@ export const organizationGetDescription: OrganizationProperties = [
 				resource: ['organization'],
 				operation: ['get'],
 				allorgs: [
-					false
-				]
-			}
-		}
-	}
+					false,
+				],
+			},
+		},
+	},
 ];

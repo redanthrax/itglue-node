@@ -47,7 +47,7 @@ export async function apiRequest(
 	};
 
 	if(Object.keys(body).length > 0) {
-		options.body = body
+		options.body = body;
 	}
 
 	(options.headers as IDataObject)['X-API-KEY'] = `${creds.apiKey}`;

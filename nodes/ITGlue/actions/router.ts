@@ -44,5 +44,5 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 		}
 	}
 
-	return [operationResult]
+	return [operationResult];
 }

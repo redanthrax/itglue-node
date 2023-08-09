@@ -15,7 +15,7 @@ export async function get(
 	const allorgs = this.getNodeParameter('allorgs', index, {}) as IDataObject;
 	if(!allorgs) {
 		const orgid = this.getNodeParameter('orgid', index, 0) as IDataObject;
-		endpoint = `organizations/${orgid}`
+		endpoint = `organizations/${orgid}`;
 	}
 
 	//filtering

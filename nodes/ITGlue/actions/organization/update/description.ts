@@ -10,7 +10,7 @@ export const organizationUpdateDescription: OrganizationProperties = [
 			show: {
 				resource: ['organization'],
 				operation: ['update'],
-			}
+			},
 		},
 		required: true,
 	},
@@ -32,7 +32,7 @@ export const organizationUpdateDescription: OrganizationProperties = [
 				name: 'name',
 				type: 'string',
 				default: '',
-				placeholder: 'Organization Name'
+				placeholder: 'Organization Name',
 			},
 			{
 				displayName: 'Alert',
@@ -54,7 +54,7 @@ export const organizationUpdateDescription: OrganizationProperties = [
 				default: '',
 				typeOptions: {
 					loadOptionsMethod: 'getOrgTypes',
-				}
+				},
 			},
 			{
 				displayName: 'Organization Status Name or ID',
@@ -64,7 +64,7 @@ export const organizationUpdateDescription: OrganizationProperties = [
 				default: '',
 				typeOptions: {
 					loadOptionsMethod: 'getOrgStatuses',
-				}
+				},
 			},
 			{
 				displayName: 'Quick Notes',
@@ -78,6 +78,6 @@ export const organizationUpdateDescription: OrganizationProperties = [
 				type: 'string',
 				default: '',
 			},
-		]
-	}
+		],
+	},
 ];

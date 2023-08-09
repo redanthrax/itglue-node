@@ -14,7 +14,7 @@ export const description: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['organization'],
-			}
+			},
 		},
 		options: [
 			{
@@ -33,5 +33,5 @@ export const description: INodeProperties[] = [
 		default: 'get',
 	},
 	...get.description,
-	...update.description
+	...update.description,
 ];

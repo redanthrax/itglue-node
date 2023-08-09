@@ -33,7 +33,7 @@ export class ITGlue implements INodeType {
 		requestDefaults: {
 			headers: {
 				Accept: 'application/json',
-				'Content-Type': 'application/vnd.api+json'
+				'Content-Type': 'application/vnd.api+json',
 			},
 		},
 		properties: [
@@ -51,7 +51,7 @@ export class ITGlue implements INodeType {
 				default: 'organization',
 			},
 			...organization.description,
-		]
+		],
 	};
 
 	methods = { loadOptions };
