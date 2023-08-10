@@ -54,6 +54,8 @@ export async function apiRequest(
 	//short delay to take it easy
 	await delay(200);
 
+	console.log(options);
+
 	//@ts-ignore
 	const responseData = (await this.helpers.request(options)) as IDataObject;
 	return responseData;

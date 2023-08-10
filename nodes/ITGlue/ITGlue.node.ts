@@ -1,6 +1,7 @@
 import { IExecuteFunctions } from 'n8n-core';
 
 import * as organization from './actions/organization';
+import * as domain from './actions/domain';
 
 import {
 	INodeType,
@@ -47,10 +48,15 @@ export class ITGlue implements INodeType {
 						name: 'Organization',
 						value: 'organization',
 					},
+					{
+						name: 'Domain',
+						value: 'domain',
+					},
 				],
 				default: 'organization',
 			},
 			...organization.description,
+			...domain.description,
 		],
 	};
 
