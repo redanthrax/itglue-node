@@ -7,8 +7,9 @@ import {
 
 import { ITGlue } from './interfaces';
 
-import * as organization from './organization';
+import * as configuration from './configuration';
 import * as domain from './domain';
+import * as organization from './organization';
 
 export async function router(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 	const items = this.getInputData();
@@ -25,11 +26,14 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 
 		try {
 			switch(itglue.resource) {
-				case 'organization':
-					responseData = await organization[itglue.operation].execute.call(this, i);
+				case 'configuration':
+					responseData = await configuration[itglue.operation].execute.call(this, i);
 					break;
 				case 'domain':
 					responseData = await domain[itglue.operation].execute.call(this, i);
+					break;
+				case 'organization':
+					responseData = await organization[itglue.operation].execute.call(this, i);
 					break;
 				default:
 					break;

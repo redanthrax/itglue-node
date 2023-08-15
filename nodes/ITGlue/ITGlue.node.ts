@@ -1,7 +1,8 @@
 import { IExecuteFunctions } from 'n8n-core';
 
-import * as organization from './actions/organization';
+import * as configuration from './actions/configuration';
 import * as domain from './actions/domain';
+import * as organization from './actions/organization';
 
 import {
 	INodeType,
@@ -45,18 +46,23 @@ export class ITGlue implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
-						name: 'Organization',
-						value: 'organization',
+						name: 'Configuration',
+						value: 'configuration'
 					},
 					{
 						name: 'Domain',
 						value: 'domain',
 					},
+					{
+						name: 'Organization',
+						value: 'organization',
+					},
 				],
 				default: 'organization',
 			},
-			...organization.description,
+			...configuration.description,
 			...domain.description,
+			...organization.description,
 		],
 	};
 
