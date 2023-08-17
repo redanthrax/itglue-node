@@ -25,7 +25,7 @@ export const configurationGetDescription: ConfigurationProperties = [
 				resource: ['configuration'],
 				operation: ['get'],
 				allconfigs: [
-					true,
+					false,
 				],
 			},
 		},
@@ -40,6 +40,18 @@ export const configurationGetDescription: ConfigurationProperties = [
 				displayName: 'Name',
 				name: 'name',
 				type: 'string',
+				default: '',
+			},
+			{
+				displayName: 'Organization ID',
+				name: 'organization_id',
+				type: 'number',
+				default: '',
+			},
+			{
+				displayName: 'Configuration Type ID',
+				name: 'configuration_type_id',
+				type: 'number',
 				default: '',
 			},
 		],
