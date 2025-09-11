@@ -9,7 +9,7 @@ export async function get(
 	const body = {} as IDataObject;
 	const requestMethod = 'GET';
 	const endpoint = 'domains';
-	const alldomains = this.getNodeParameter('alldomains', index, {}) as IDataObject;
+	// const alldomains = this.getNodeParameter('alldomains', index, {}) as IDataObject;
 	
 	const responseData = await itglueRequest.call(this, index, requestMethod, endpoint, body, qs);
 	return this.helpers.returnJsonArray(responseData);

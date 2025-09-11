@@ -49,9 +49,9 @@ export async function apiRequest(
 	}
 
 	//short delay to take it easy
-	await delay(200);
+	await new Promise(resolve => setTimeout(resolve, 200));
 
-	console.log(options);
+	// console.log(options);
 
 	const responseData = (await this.helpers.request(options)) as IDataObject;
 	return responseData;
@@ -83,6 +83,3 @@ export async function apiRequestAllItems(
 	return returnData;
 }
 
-function delay(ms: number){
-		return new Promise(resolve => setTimeout(resolve, ms));
-}

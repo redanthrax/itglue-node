@@ -1,4 +1,4 @@
-import { INode, INodeProperties } from "n8n-workflow";
+import { INodeProperties } from "n8n-workflow";
 
 import * as get from './get';
 
