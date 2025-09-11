@@ -1,11 +1,11 @@
-import { OptionsWithUri } from 'request';
-
-import { IExecuteFunctions, IHookFunctions, ILoadOptionsFunctions } from 'n8n-core';
-
 import {
 	IDataObject,
+	IExecuteFunctions,
 	IExecuteSingleFunctions,
+	IHookFunctions,
 	IHttpRequestMethods,
+	IHttpRequestOptions,
+	ILoadOptionsFunctions,
 	IPollFunctions,
 } from 'n8n-workflow';
 
@@ -32,17 +32,15 @@ export async function apiRequest(
 	qs: IDataObject = {},
 ):Promise<IDataObject> {
 	const creds = await this.getCredentials('itglueApi');
-	const options: OptionsWithUri = {
+	const options: IHttpRequestOptions = {
 		headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/vnd.api+json',
+				'X-API-KEY': `${creds.apiKey}`,
 		},
 		method,
 		qs,
-		uri: `https://${creds.region}.itglue.com/${endpoint}`,
-				qsStringifyOptions: {
-				arrayFormat: 'repeat',
-		},
+		url: `https://${creds.region}.itglue.com/${endpoint}`,
 		json: true,
 	};
 
@@ -50,13 +48,11 @@ export async function apiRequest(
 		options.body = body;
 	}
 
-	(options.headers as IDataObject)['X-API-KEY'] = `${creds.apiKey}`;
 	//short delay to take it easy
 	await delay(200);
 
 	console.log(options);
 
-	//@ts-ignore
 	const responseData = (await this.helpers.request(options)) as IDataObject;
 	return responseData;
 }

@@ -1,12 +1,12 @@
-import { IExecuteFunctions } from 'n8n-core';
-
 import * as configuration from './actions/configuration';
 import * as domain from './actions/domain';
 import * as organization from './actions/organization';
 
 import {
+	IExecuteFunctions,
 	INodeType,
 	INodeTypeDescription,
+	NodeConnectionType,
 } from 'n8n-workflow';
 
 import { loadOptions } from './methods';
@@ -24,8 +24,8 @@ export class ITGlue implements INodeType {
 		defaults: {
 			name: 'IT Glue',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
 				name: 'itglueApi',
