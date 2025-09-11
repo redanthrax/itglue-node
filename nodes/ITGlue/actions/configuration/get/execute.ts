@@ -7,7 +7,7 @@ export async function get(
 ): Promise<INodeExecutionData[]> {
 	const qs = {} as IDataObject;
 	const requestMethod = 'GET';
-	let endpoint = 'configurations';
+	const endpoint = 'configurations';
 	const body = {} as IDataObject;
 
 	qs['filter[id]'] = this.getNodeParameter('filters.id', index, {}) as IDataObject;

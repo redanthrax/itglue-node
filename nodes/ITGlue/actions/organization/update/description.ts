@@ -28,13 +28,6 @@ export const organizationUpdateDescription: OrganizationProperties = [
 		},
 		options: [
 			{
-				displayName: 'Name',
-				name: 'name',
-				type: 'string',
-				default: '',
-				placeholder: 'Organization Name',
-			},
-			{
 				displayName: 'Alert',
 				name: 'alert',
 				type: 'string',
@@ -47,23 +40,30 @@ export const organizationUpdateDescription: OrganizationProperties = [
 				default: '',
 			},
 			{
-				displayName: 'Organization Type Name or ID',
-				name: 'organization_type_id',
-				type: 'options',
-				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>',
+				displayName: 'Name',
+				name: 'name',
+				type: 'string',
 				default: '',
-				typeOptions: {
-					loadOptionsMethod: 'getOrgTypes',
-				},
+				placeholder: 'Organization Name',
 			},
 			{
 				displayName: 'Organization Status Name or ID',
 				name: 'organization_status_id',
 				type: 'options',
-				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>',
+				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 				default: '',
 				typeOptions: {
 					loadOptionsMethod: 'getOrgStatuses',
+				},
+			},
+			{
+				displayName: 'Organization Type Name or ID',
+				name: 'organization_type_id',
+				type: 'options',
+				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				default: '',
+				typeOptions: {
+					loadOptionsMethod: 'getOrgTypes',
 				},
 			},
 			{

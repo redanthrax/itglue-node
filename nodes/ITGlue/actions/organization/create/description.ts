@@ -48,7 +48,7 @@ export const organizationCreateDescription: OrganizationProperties = [
 		displayName: 'Organization Type Name or ID',
 		name: 'forgtype',
 		type: 'options',
-		description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>',
+		description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		default: '',
 		typeOptions: {
 			loadOptionsMethod: 'getOrgTypes',
@@ -65,7 +65,7 @@ export const organizationCreateDescription: OrganizationProperties = [
 		displayName: 'Organization Status Name or ID',
 		name: 'forgstatus',
 		type: 'options',
-		description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>',
+		description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 		default: '',
 		typeOptions: {
 			loadOptionsMethod: 'getOrgStatuses',

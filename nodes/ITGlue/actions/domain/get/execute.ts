@@ -8,7 +8,7 @@ export async function get(
 	const qs = {} as IDataObject;
 	const body = {} as IDataObject;
 	const requestMethod = 'GET';
-	let endpoint = 'domains';
+	const endpoint = 'domains';
 	const alldomains = this.getNodeParameter('alldomains', index, {}) as IDataObject;
 	
 	const responseData = await itglueRequest.call(this, index, requestMethod, endpoint, body, qs);

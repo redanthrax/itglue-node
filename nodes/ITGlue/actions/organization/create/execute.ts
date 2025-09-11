@@ -7,9 +7,9 @@ export async function create(
 ): Promise<INodeExecutionData[]> {
 	const qs = {} as IDataObject;
 	const requestMethod = 'POST';
-	let endpoint = 'organizations';
+	const endpoint = 'organizations';
 	const body = {} as IDataObject;
-	let data = {} as IDataObject;
+	const data = {} as IDataObject;
 	data.type = "organizations";
 
 	//set attributes
