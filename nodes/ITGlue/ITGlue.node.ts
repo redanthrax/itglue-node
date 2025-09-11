@@ -24,8 +24,8 @@ export class ITGlue implements INodeType {
 		defaults: {
 			name: 'IT Glue',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
 				name: 'itglueApi',
