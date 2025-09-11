@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-itglue",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "An n8n node to connect to IT Glue",
   "keywords": [
     "n8n-nodes-itglue",
@@ -31,10 +31,10 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-        "dist/credentials/ITGlueApi.credentials.js"
+      "dist/credentials/ITGlueApi.credentials.js"
     ],
     "nodes": [
-        "dist/nodes/ITGlue/ITGlue.node.js"
+      "dist/nodes/ITGlue/ITGlue.node.js"
     ]
   },
   "devDependencies": {
