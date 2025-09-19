@@ -35,7 +35,16 @@ npm install n8n-nodes-itglue
 ## Supported Operations
 
 ### [Organizations](./docs/organizations.md)
-Manage organization records with comprehensive CRUD operations including creation, updates, and retrieval with filtering capabilities.
+Manage organization records with comprehensive CRUD operations including creation, updates, deletion, and retrieval with filtering capabilities.
+
+### [Passwords](./docs/passwords.md)
+Securely manage password entries with full CRUD operations including creation, updates, retrieval, and deletion with advanced filtering.
+
+### [Flexible Assets](./docs/flexible-assets.md)
+Manage custom flexible asset types with dynamic field structures, supporting creation, updates, retrieval, and deletion.
+
+### [Contacts](./docs/contacts.md)
+Manage contact records with full CRUD operations including creation, updates, retrieval, and deletion with contact information.
 
 ### [Configurations](./docs/configurations.md)
 Retrieve configuration item information with comprehensive filtering options for IT asset management.

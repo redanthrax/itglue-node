@@ -1,6 +1,9 @@
 import * as configuration from './actions/configuration';
 import * as domain from './actions/domain';
 import * as organization from './actions/organization';
+import * as password from './actions/password';
+import * as flexibleAsset from './actions/flexibleAsset';
+import * as contact from './actions/contact';
 
 import {
 	IExecuteFunctions,
@@ -50,12 +53,24 @@ export class ITGlue implements INodeType {
 						value: 'configuration',
 					},
 					{
+						name: 'Contact',
+						value: 'contact',
+					},
+					{
 						name: 'Domain',
 						value: 'domain',
 					},
 					{
+						name: 'Flexible Asset',
+						value: 'flexibleAsset',
+					},
+					{
 						name: 'Organization',
 						value: 'organization',
+					},
+					{
+						name: 'Password',
+						value: 'password',
 					},
 				],
 				default: 'organization',
@@ -63,6 +78,9 @@ export class ITGlue implements INodeType {
 			...configuration.description,
 			...domain.description,
 			...organization.description,
+			...password.descriptions,
+			...flexibleAsset.descriptions,
+			...contact.descriptions,
 		],
 	};
 
