@@ -30,6 +30,11 @@ export async function get(
 	const orgstatus = this.getNodeParameter('filters.forgstatus', index, {}) as IDataObject;
 	qs["filter[organization_status_id]"] = orgstatus;
 
+	const limit = this.getNodeParameter('filters.limit', index, 50) as number;
+	if (allorgs && limit) {
+		qs["page[size]"] = limit;
+	}
+
 	const responseData = await itglueRequest.call(this, index, requestMethod, endpoint, body, qs);
 	return this.helpers.returnJsonArray(responseData);
 }

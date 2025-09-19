@@ -30,7 +30,17 @@ export const organizationGetDescription: OrganizationProperties = [
 				],
 			},
 		},
-		options: [
+	options: [
+			{
+				displayName: 'Limit',
+				name: 'limit',
+				type: 'number',
+				default: 50,
+				description: 'Max number of results to return',
+				typeOptions: {
+					minValue: 1,
+				},
+			},
 			{
 				displayName: 'Organization ID',
 				name: 'forgid',
@@ -44,16 +54,6 @@ export const organizationGetDescription: OrganizationProperties = [
 				default: '',
 			},
 			{
-				displayName: 'Organization Type Name or ID',
-				name: 'forgtype',
-				type: 'options',
-				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
-				default: '',
-				typeOptions: {
-					loadOptionsMethod: 'getOrgTypes',
-				},
-			},
-			{
 				displayName: 'Organization Status Name or ID',
 				name: 'forgstatus',
 				type: 'options',
@@ -61,6 +61,16 @@ export const organizationGetDescription: OrganizationProperties = [
 				default: '',
 				typeOptions: {
 					loadOptionsMethod: 'getOrgStatuses',
+				},
+			},
+			{
+				displayName: 'Organization Type Name or ID',
+				name: 'forgtype',
+				type: 'options',
+				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				default: '',
+				typeOptions: {
+					loadOptionsMethod: 'getOrgTypes',
 				},
 			},
 		],

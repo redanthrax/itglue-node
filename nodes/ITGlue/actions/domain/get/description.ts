@@ -14,4 +14,23 @@ export const domainGetDescription: DomainProperties = [
 			},
 		},
 	},
+	{
+		displayName: 'Limit',
+		name: 'limit',
+		type: 'number',
+		default: 50,
+		description: 'Max number of results to return',
+		displayOptions: {
+			show: {
+				resource: ['domain'],
+				operation: ['get'],
+				alldomains: [
+					true,
+				],
+			},
+		},
+		typeOptions: {
+			minValue: 1,
+		},
+	},
 ];

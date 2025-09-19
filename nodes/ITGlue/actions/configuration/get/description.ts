@@ -29,12 +29,28 @@ export const configurationGetDescription: ConfigurationProperties = [
 				],
 			},
 		},
-		options: [
+	options: [
 			{
 				displayName: 'Configuration ID',
 				name: 'id',
 				type: 'number',
 				default: '',
+			},
+			{
+				displayName: 'Configuration Type ID',
+				name: 'configuration_type_id',
+				type: 'number',
+				default: '',
+			},
+			{
+				displayName: 'Limit',
+				name: 'limit',
+				type: 'number',
+				default: 50,
+				description: 'Max number of results to return',
+				typeOptions: {
+					minValue: 1,
+				},
 			},
 			{
 				displayName: 'Name',
@@ -45,12 +61,6 @@ export const configurationGetDescription: ConfigurationProperties = [
 			{
 				displayName: 'Organization ID',
 				name: 'organization_id',
-				type: 'number',
-				default: '',
-			},
-			{
-				displayName: 'Configuration Type ID',
-				name: 'configuration_type_id',
 				type: 'number',
 				default: '',
 			},

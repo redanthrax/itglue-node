@@ -19,6 +19,11 @@ export async function get(
 	qs['filter[serial_number]'] = this.getNodeParameter('filters.serial_number', index, {}) as IDataObject;
 	qs['filter[asset_tag]'] = this.getNodeParameter('filters.asset_tag', index, {}) as IDataObject;
 
+	const limit = this.getNodeParameter('filters.limit', index, 50) as number;
+	if (limit) {
+		qs["page[size]"] = limit;
+	}
+
 	const responseData = await itglueRequest.call(this, index, requestMethod, endpoint, body, qs);
 	return this.helpers.returnJsonArray(responseData);
 }

@@ -29,7 +29,9 @@
     "prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js nodes credentials package.json"
   },
   "files": [
-    "dist"
+    "dist",
+    "docs",
+    "README.md"
   ],
   "n8n": {
     "n8nNodesApiVersion": 1,
@@ -41,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^24.5.0",
     "@typescript-eslint/parser": "~8.32.0",
     "eslint": "^8.57.0",
     "eslint-plugin-n8n-nodes-base": "^1.16.3",

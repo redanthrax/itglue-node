@@ -9,7 +9,12 @@ export async function get(
 	const body = {} as IDataObject;
 	const requestMethod = 'GET';
 	const endpoint = 'domains';
-	// const alldomains = this.getNodeParameter('alldomains', index, {}) as IDataObject;
+	const alldomains = this.getNodeParameter('alldomains', index, true) as boolean;
+
+	const limit = this.getNodeParameter('limit', index, 50) as number;
+	if (alldomains && limit) {
+		qs["page[size]"] = limit;
+	}
 	
 	const responseData = await itglueRequest.call(this, index, requestMethod, endpoint, body, qs);
 	return this.helpers.returnJsonArray(responseData);
