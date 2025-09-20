@@ -25,4 +25,5 @@ export const description: INodeProperties[] = [
 		],
 		default: 'get',
 	},
+	...get.description,
 ];

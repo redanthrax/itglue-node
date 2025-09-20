@@ -5,14 +5,19 @@
 Retrieve domain data from IT Glue.
 
 **Parameters:**
-- **All Domains**: Whether to get all domains or apply specific filtering (default: true)
-- **Limit**: Maximum number of domains to return when "All Domains" is enabled (default: 50, min: 1)
+- **Return All**: Whether to return all results or only up to a given limit (default: false)
+- **Limit**: Maximum number of domains to return when "Return All" is disabled (default: 50, min: 1)
+- **Filters**: Available filter options:
+  - **Domain ID**: Filter by specific domain ID
+  - **Organization ID**: Filter by organization ID
+- **Sort**: Sort results by creation date or update date (ascending/descending)
 
-### Get All Domains
-When "All Domains" is enabled, retrieve all domain records available in the IT Glue instance with optional limit control.
+### Available Filters
+The IT Glue domains API has limited filtering capabilities. Only the following filters are supported:
+- Domain ID (exact match)
+- Organization ID (exact match)
 
-### Get Specific Domains
-When "All Domains" is disabled, additional filtering options may be applied for more targeted domain retrieval.
+**Note**: Domain name filtering is NOT supported by the IT Glue API. To find domains by name, retrieve all domains and filter client-side.
 
 ## Error Handling
 
