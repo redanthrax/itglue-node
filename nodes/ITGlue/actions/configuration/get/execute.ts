@@ -10,17 +10,22 @@ export async function get(
 	const endpoint = 'configurations';
 	const body = {} as IDataObject;
 
-	qs['filter[id]'] = this.getNodeParameter('filters.id', index, {}) as IDataObject;
-	qs['filter[name]'] = this.getNodeParameter('filters.name', index, {}) as IDataObject;
-	qs['filter[organization_id]'] = this.getNodeParameter('filters.organization_id', index, {}) as IDataObject;
-	qs['filter[configuration_type_id]'] = this.getNodeParameter('filters.configuration_type_id', index, {}) as IDataObject;
-	qs['filter[configuration_status_id]'] = this.getNodeParameter('filters.configuration_status_id', index, {}) as IDataObject;
-	qs['filter[contact_id]'] = this.getNodeParameter('filters.contact_id', index, {}) as IDataObject;
-	qs['filter[serial_number]'] = this.getNodeParameter('filters.serial_number', index, {}) as IDataObject;
-	qs['filter[asset_tag]'] = this.getNodeParameter('filters.asset_tag', index, {}) as IDataObject;
+	// Filter parameters
+	const filterParams = [
+		'id', 'name', 'organization_id', 'configuration_type_id', 'configuration_status_id',
+		'contact_id', 'serial_number', 'asset_tag', 'hostname', 'primary_ip', 'mac_address',
+		'manufacturer_id', 'model_id', 'operating_system_id', 'location_id', 'archived'
+	];
+
+	filterParams.forEach(param => {
+		const value = this.getNodeParameter(`filters.${param}`, index, '') as string | number | boolean;
+		if (value !== '' && value !== null && value !== undefined) {
+			qs[`filter[${param}]`] = value;
+		}
+	});
 
 	const limit = this.getNodeParameter('filters.limit', index, 50) as number;
-	if (limit) {
+	if (limit && limit > 0) {
 		qs["page[size]"] = limit;
 	}
 

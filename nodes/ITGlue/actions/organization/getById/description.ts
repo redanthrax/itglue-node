@@ -2,12 +2,15 @@ import { OrganizationProperties } from "../../interfaces";
 
 export const organizationGetByIdDescription: OrganizationProperties = [
 	{
-		displayName: 'Organization ID',
+		displayName: 'Organization Name or ID',
 		name: 'id',
-		type: 'string',
+		type: 'options',
+		description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
 		default: '',
+		typeOptions: {
+			loadOptionsMethod: 'getOrganizations',
+		},
 		required: true,
-		description: 'The ID of the organization to retrieve',
 		displayOptions: {
 			show: {
 				resource: ['organization'],

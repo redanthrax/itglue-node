@@ -9,7 +9,7 @@ export async function deleteOrganization(
 	const requestMethod = 'DELETE';
 	const body = {} as IDataObject;
 
-	const orgid = this.getNodeParameter('orgid', index) as number;
+	const orgid = this.getNodeParameter('id', index) as string;
 	const endpoint = `organizations/${orgid}`;
 
 	const responseData = await itglueRequest.call(this, index, requestMethod, endpoint, body, qs);

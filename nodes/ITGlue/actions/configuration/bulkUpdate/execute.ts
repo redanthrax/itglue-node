@@ -14,17 +14,38 @@ export async function bulkUpdate(
 		name?: string,
 		hostname?: string,
 		primaryIp?: string,
+		macAddress?: string,
+		serialNumber?: string,
+		assetTag?: string,
+		configurationStatusId?: number,
+		contactId?: number,
+		locationId?: number,
 		notes?: string
 	}>;
+	
+	const fieldMapping = {
+		name: 'name',
+		hostname: 'hostname',
+		primaryIp: 'primary-ip',
+		macAddress: 'mac-address',
+		serialNumber: 'serial-number',
+		assetTag: 'asset-tag',
+		configurationStatusId: 'configuration-status-id',
+		contactId: 'contact-id',
+		locationId: 'location-id',
+		notes: 'notes'
+	};
 	
 	const body = {
 		data: updates.map(update => {
 			const attributes = {} as IDataObject;
 			
-			if (update.name) attributes.name = update.name;
-			if (update.hostname) attributes.hostname = update.hostname;
-			if (update.primaryIp) attributes['primary-ip'] = update.primaryIp;
-			if (update.notes) attributes.notes = update.notes;
+			Object.entries(fieldMapping).forEach(([camelField, dashField]) => {
+				const value = (update as any)[camelField];
+				if (value !== undefined && value !== '' && value !== null) {
+					attributes[dashField] = value;
+				}
+			});
 			
 			return {
 				type: 'configurations',

@@ -15,6 +15,12 @@ export async function getOrgStatuses(this: ILoadOptionsFunctions): Promise<INode
 	return data;
 }
 
+export async function getOrganizations(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+	const responseData = await apiRequestAllItems.call(this, 'GET', 'organizations', {});
+	const data = await parseData.call(this, responseData);
+	return data;
+}
+
 async function parseData(this: ILoadOptionsFunctions,
 	responseData: IDataObject[]): Promise<INodePropertyOptions[]> {
 	if (responseData === undefined) {
@@ -23,10 +29,10 @@ async function parseData(this: ILoadOptionsFunctions,
 
 	const returnData: INodePropertyOptions[] = [];
 	for (const data of responseData) {
-		returnData.push({
-			name:  (data.attributes as IDataObject).name as string,
-			value: data.id as number,
-		});
+	returnData.push({
+		name:  (data.attributes as IDataObject).name as string,
+		value: data.id as string,
+	});
 	}
 
 	returnData.sort((a, b) => {

@@ -1,40 +1,51 @@
 import { IDataObject, IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
-import { itglueRequest } from "../../../transport";
+import { apiRequest, apiRequestAllItems } from "../../../transport";
 
 export async function get(
 	this: IExecuteFunctions,
 	index: number,
 ): Promise<INodeExecutionData[]> {
-	const qs = {} as IDataObject;
-	const requestMethod = 'GET';
-	let endpoint = 'organizations';
-	const body = {} as IDataObject;
+	const returnAll = this.getNodeParameter('returnAll', index);
+	const filters = this.getNodeParameter('filters', index) as IDataObject;
+	const options = this.getNodeParameter('options', index) as IDataObject;
 
-	//handle scenarios
-	const allorgs = this.getNodeParameter('allorgs', index, {}) as IDataObject;
-	if(!allorgs) {
-		const orgid = this.getNodeParameter('orgid', index, 0) as IDataObject;
-		endpoint = `organizations/${orgid}`;
+	const endpoint = 'organizations';
+	const qs: IDataObject = {};
+
+	// Apply filters with proper API parameter names
+	if (filters) {
+		if (filters.id) {
+			qs['filter[id]'] = filters.id;
+		}
+		if (filters.organization_status_id) {
+			qs['filter[organization_status_id]'] = filters.organization_status_id;
+		}
+		if (filters.organization_type_id) {
+			qs['filter[organization_type_id]'] = filters.organization_type_id;
+		}
 	}
 
-	//filtering
-	const forgid = this.getNodeParameter('filters.forgid', index, {}) as IDataObject;
-	qs["filter[id]"] = forgid;
-
-	const forgname = this.getNodeParameter('filters.forgname', index, {}) as IDataObject;
-	qs["filter[name]"] = forgname;
-
-	const orgtype = this.getNodeParameter('filters.forgtype', index, {}) as IDataObject;
-	qs["filter[organization_type_id]"] = orgtype;
-
-	const orgstatus = this.getNodeParameter('filters.forgstatus', index, {}) as IDataObject;
-	qs["filter[organization_status_id]"] = orgstatus;
-
-	const limit = this.getNodeParameter('filters.limit', index, 50) as number;
-	if (allorgs && limit) {
-		qs["page[size]"] = limit;
+	// Apply options
+	if (options.include) {
+		qs.include = (options.include as string[]).join(',');
 	}
 
-	const responseData = await itglueRequest.call(this, index, requestMethod, endpoint, body, qs);
-	return this.helpers.returnJsonArray(responseData);
+	if (options.sort) {
+		qs.sort = options.sort;
+	}
+
+	// Handle pagination
+	if (returnAll) {
+		const responseData = await apiRequestAllItems.call(this, 'GET', endpoint, {}, qs);
+		return this.helpers.returnJsonArray(responseData);
+	}
+
+	const limit = this.getNodeParameter('limit', index);
+	const pageNumber = this.getNodeParameter('pageNumber', index, 1);
+	
+	qs['page[size]'] = limit;
+	qs['page[number]'] = pageNumber;
+
+	const responseData = await apiRequest.call(this, 'GET', endpoint, {}, qs);
+	return this.helpers.returnJsonArray(responseData.data ? responseData.data as IDataObject[] : []);
 }

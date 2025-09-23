@@ -17,8 +17,8 @@ export async function create(
 	attributes.name = this.getNodeParameter('name', index) as string;
 	attributes.alert = this.getNodeParameter('alert', index) as string;
 	attributes.description = this.getNodeParameter('description', index) as string;
-	attributes["organization-type-id"] = this.getNodeParameter('forgtype', index) as string;
-	attributes["organization-status-id"] = this.getNodeParameter('forgstatus', index) as string;
+	attributes["organization-type-id"] = this.getNodeParameter('organization_type_id', index) as string;
+	attributes["organization-status-id"] = this.getNodeParameter('organization_status_id', index) as string;
 	data.attributes = attributes;
 
 	//set body data

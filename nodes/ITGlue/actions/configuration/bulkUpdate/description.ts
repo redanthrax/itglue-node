@@ -23,6 +23,12 @@ export const configurationBulkUpdateDescription: ConfigurationProperties = [
 				name: 'update',
 				values: [
 					{
+						displayName: 'Asset Tag',
+						name: 'assetTag',
+						type: 'string',
+						default: '',
+					},
+					{
 						displayName: 'Configuration ID',
 						name: 'id',
 						type: 'string',
@@ -31,11 +37,35 @@ export const configurationBulkUpdateDescription: ConfigurationProperties = [
 						description: 'The ID of the configuration to update',
 					},
 					{
+						displayName: 'Configuration Status ID',
+						name: 'configurationStatusId',
+						type: 'number',
+						default: '',
+					},
+					{
+						displayName: 'Contact ID',
+						name: 'contactId',
+						type: 'number',
+						default: '',
+					},
+					{
 						displayName: 'Hostname',
 						name: 'hostname',
 						type: 'string',
 						default: '',
 						description: 'The hostname of the configuration',
+					},
+					{
+						displayName: 'Location ID',
+						name: 'locationId',
+						type: 'number',
+						default: '',
+					},
+					{
+						displayName: 'MAC Address',
+						name: 'macAddress',
+						type: 'string',
+						default: '',
 					},
 					{
 						displayName: 'Name',
@@ -57,6 +87,12 @@ export const configurationBulkUpdateDescription: ConfigurationProperties = [
 						type: 'string',
 						default: '',
 						description: 'The primary IP address',
+					},
+					{
+						displayName: 'Serial Number',
+						name: 'serialNumber',
+						type: 'string',
+						default: '',
 					},
 				],
 			},

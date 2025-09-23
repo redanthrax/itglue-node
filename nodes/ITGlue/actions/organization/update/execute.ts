@@ -12,7 +12,7 @@ export async function update(
 	const data = {} as IDataObject;
 
 	//get the org
-	const orgid = this.getNodeParameter('orgid', index, 0) as IDataObject;
+	const orgid = this.getNodeParameter('id', index, 0) as IDataObject;
 	const endpoint = `organizations/${orgid}`;
 
 	//construct the patch

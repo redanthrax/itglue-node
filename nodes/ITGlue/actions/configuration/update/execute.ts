@@ -19,18 +19,31 @@ export async function update(
 		}
 	} as IDataObject;
 
-	// Add optional fields
-	const optionalFields = [
-		'name', 'hostname', 'primaryIp', 'macAddress', 'serialNumber', 'assetTag',
-		'locationId', 'contactId', 'manufacturerId', 'modelId', 'operatingSystemId',
-		'configurationStatusId', 'notes', 'installedBy', 'warrantyExpiresAt',
-		'purchasedAt', 'installedAt'
-	];
+	// Add optional fields with proper mapping
+	const fieldMapping = {
+		name: 'name',
+		hostname: 'hostname',
+		primaryIp: 'primary-ip',
+		macAddress: 'mac-address',
+		serialNumber: 'serial-number',
+		assetTag: 'asset-tag',
+		locationId: 'location-id',
+		contactId: 'contact-id',
+		manufacturerId: 'manufacturer-id',
+		modelId: 'model-id',
+		operatingSystemId: 'operating-system-id',
+		configurationTypeId: 'configuration-type-id',
+		configurationStatusId: 'configuration-status-id',
+		notes: 'notes',
+		installedBy: 'installed-by',
+		warrantyExpiresAt: 'warranty-expires-at',
+		purchasedAt: 'purchased-at',
+		installedAt: 'installed-at'
+	};
 
-	optionalFields.forEach(field => {
-		const dashField = field.replace(/[A-Z]/g, (match) => '-' + match.toLowerCase());
-		const value = this.getNodeParameter(field, index, '') as string;
-		if (value) {
+	Object.entries(fieldMapping).forEach(([camelField, dashField]) => {
+		const value = this.getNodeParameter(camelField, index, '') as string | number;
+		if (value !== '' && value !== null && value !== undefined) {
 			((body.data as IDataObject).attributes as IDataObject)[dashField] = value;
 		}
 	});

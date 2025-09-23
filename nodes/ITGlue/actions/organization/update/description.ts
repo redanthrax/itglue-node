@@ -2,10 +2,14 @@ import { OrganizationProperties } from "../../interfaces";
 
 export const organizationUpdateDescription: OrganizationProperties = [
 	{
-		displayName: 'Organization ID',
-		name: 'orgid',
-		type: 'number',
+		displayName: 'Organization Name or ID',
+		name: 'id',
+		type: 'options',
+		description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
 		default: '',
+		typeOptions: {
+			loadOptionsMethod: 'getOrganizations',
+		},
 		displayOptions: {
 			show: {
 				resource: ['organization'],
@@ -50,7 +54,7 @@ export const organizationUpdateDescription: OrganizationProperties = [
 				displayName: 'Organization Status Name or ID',
 				name: 'organization_status_id',
 				type: 'options',
-				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
 				default: '',
 				typeOptions: {
 					loadOptionsMethod: 'getOrgStatuses',
@@ -60,7 +64,7 @@ export const organizationUpdateDescription: OrganizationProperties = [
 				displayName: 'Organization Type Name or ID',
 				name: 'organization_type_id',
 				type: 'options',
-				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
 				default: '',
 				typeOptions: {
 					loadOptionsMethod: 'getOrgTypes',

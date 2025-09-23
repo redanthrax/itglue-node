@@ -12,6 +12,12 @@ export async function getById(
 	const endpoint = `configurations/${id}`;
 	const body = {} as IDataObject;
 
+	// Handle include parameter for related data
+	const include = this.getNodeParameter('include', index, []) as string[];
+	if (include.length > 0) {
+		qs.include = include.join(',');
+	}
+
 	const responseData = await itglueRequest.call(this, index, requestMethod, endpoint, body, qs);
 	return this.helpers.returnJsonArray(responseData);
 }

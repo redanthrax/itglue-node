@@ -9,7 +9,8 @@ export async function bulkDestroy(
 	const requestMethod = 'DELETE';
 	const endpoint = 'configurations';
 	
-	const ids = this.getNodeParameter('ids', index) as string[];
+	const idsInput = this.getNodeParameter('ids', index) as string;
+	const ids = idsInput.split(',').map(id => id.trim()).filter(id => id !== '');
 	
 	const body = {
 		data: ids.map(id => ({
