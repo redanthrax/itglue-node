@@ -14,37 +14,51 @@ export async function update(
 	const body = {
 		data: {
 			type: 'configurations',
-			id: id,
 			attributes: {}
 		}
 	} as IDataObject;
 
-	// Add optional fields with proper mapping
-	const fieldMapping = {
-		name: 'name',
+	// Get the update fields collection
+	const updateFields = this.getNodeParameter('updateFields', index) as IDataObject;
+
+	// Map camelCase to dash-case for API attributes
+	const fieldMapping: { [key: string]: string } = {
+		archived: 'archived',
+		assetTag: 'asset_tag',
+		configurationStatusId: 'configuration_status_id',
+		configurationTypeId: 'configuration_type_id',
+		contactId: 'contact_id',
+		defaultGateway: 'default_gateway',
 		hostname: 'hostname',
-		primaryIp: 'primary-ip',
-		macAddress: 'mac-address',
-		serialNumber: 'serial-number',
-		assetTag: 'asset-tag',
-		locationId: 'location-id',
-		contactId: 'contact-id',
-		manufacturerId: 'manufacturer-id',
-		modelId: 'model-id',
-		operatingSystemId: 'operating-system-id',
-		configurationTypeId: 'configuration-type-id',
-		configurationStatusId: 'configuration-status-id',
+		installedAt: 'installed_at',
+		installedBy: 'installed_by',
+		locationId: 'location_id',
+		macAddress: 'mac_address',
+		manufacturerId: 'manufacturer_id',
+		mitpDeviceExpirationDate: 'mitp_device_expiration_date',
+		mitpEndOfLifeDate: 'mitp_end_of_life_date',
+		modelId: 'model_id',
+		name: 'name',
 		notes: 'notes',
-		installedBy: 'installed-by',
-		warrantyExpiresAt: 'warranty-expires-at',
-		purchasedAt: 'purchased-at',
-		installedAt: 'installed-at'
+		operatingSystemId: 'operating_system_id',
+		operatingSystemNotes: 'operating_system_notes',
+		organizationId: 'organization_id',
+		position: 'position',
+		primaryIp: 'primary_ip',
+		purchasedAt: 'purchased_at',
+		purchasedBy: 'purchased_by',
+		restricted: 'restricted',
+		serialNumber: 'serial_number',
+		warrantyExpiresAt: 'warranty_expires_at'
 	};
 
-	Object.entries(fieldMapping).forEach(([camelField, dashField]) => {
-		const value = this.getNodeParameter(camelField, index, '') as string | number;
+	// Only add fields that are specified in updateFields
+	Object.entries(updateFields).forEach(([camelField, value]) => {
 		if (value !== '' && value !== null && value !== undefined) {
-			((body.data as IDataObject).attributes as IDataObject)[dashField] = value;
+			const apiField = fieldMapping[camelField];
+			if (apiField) {
+				((body.data as IDataObject).attributes as IDataObject)[apiField] = value;
+			}
 		}
 	});
 

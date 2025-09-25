@@ -2,35 +2,39 @@
 
 ## Get
 
-Retrieve configuration item data from IT Glue with flexible filtering options.
+Retrieve configuration item data from IT Glue with comprehensive filtering and pagination options.
 
 **Parameters:**
-- **All Configurations**: Whether to get all configurations or apply specific filtering (default: true)
+- **Return All**: Whether to return all results or use pagination (default: false)
+- **Limit**: Maximum number of results per page when not returning all (default: 50, min: 1)
+- **Page Number**: Specific page for pagination (starts at 1)
 
-### Get All Configurations
-When "All Configurations" is enabled, retrieve all configuration items without filtering.
+### Filters
+Optional collection of filter options:
+- **Configuration ID**: Filter by specific configuration ID
+- **Configuration Name**: Filter by configuration name (text search)
+- **Configuration Status Name or ID**: Choose from dropdown or specify ID
+- **Configuration Type Name or ID**: Choose from dropdown or specify ID
+- **Contact Name or ID**: Choose from dropdown or specify ID
+- **MAC Address**: Filter by MAC address
+- **Organization Name or ID**: Choose from dropdown or specify ID
+- **Serial Number**: Filter by serial number
+- **Asset Tag**: Filter by asset tag
+- **Archived**: Filter by archived status (true/false)
 
-### Get Filtered Configurations
-When "All Configurations" is disabled, apply specific filters:
+### Advanced Integration Filters
+- **PSA ID**: Filter by PSA system ID (requires PSA Integration Type)
+- **PSA Integration Type**: Autotask, Kaseya BMS, Manage, Pulseway PSA, Tigerpaw, Vorex
+- **RMM ID**: Filter by RMM system ID (requires RMM Integration Type)
+- **RMM Integration Type**: 20+ supported RMM systems including Ninja RMM, ConnectWise Automate, Kaseya VSA, etc.
 
-- **Filters**: Collection of filter options including:
-  - **Configuration ID**: Filter by specific configuration ID
-  - **Configuration Type ID**: Filter by configuration type ID to get specific types of configuration items
-  - **Configuration Status ID**: Filter by configuration status ID
-  - **Contact ID**: Filter by contact ID
-  - **Limit**: Maximum number of configurations to return (default: 50, min: 1)
-  - **Name**: Filter by configuration name
-  - **Organization ID**: Filter by organization ID to get configurations for a specific organization
-  - **Serial Number**: Filter by serial number
-  - **Asset Tag**: Filter by asset tag
-  - **Hostname**: Filter by hostname
-  - **Primary IP**: Filter by primary IP address
-  - **MAC Address**: Filter by MAC address
-  - **Manufacturer ID**: Filter by manufacturer ID
-  - **Model ID**: Filter by model ID
-  - **Operating System ID**: Filter by operating system ID
-  - **Location ID**: Filter by location ID
-  - **Archived**: Filter by archived status
+### Options
+- **Include**: Related resources to include (adapters_resources, attachments, configuration_interfaces, passwords, rmm_records, tickets, etc.)
+- **Sort**: Sort order options:
+  - Created (Newest/Oldest First)
+  - ID (Highest/Lowest First)
+  - Name (A-Z, Z-A)
+  - Updated (Newest/Oldest First)
 
 ## Get by ID
 
@@ -81,30 +85,56 @@ Create a new configuration item with comprehensive field support.
 
 ## Update
 
-Update an existing configuration with comprehensive field support.
+Update an existing configuration using PATCH methodology - only specify the fields you want to change.
 
 **Required Parameters:**
 - **Configuration ID**: The ID of the configuration to update
 
-**Optional Parameters:**
-- **Name**: The new name for the configuration
-- **Configuration Type ID**: The ID of the configuration type
-- **Configuration Status ID**: The ID of the configuration status
-- **Contact ID**: The ID of the contact associated with this configuration
-- **Location ID**: The ID of the location where this configuration is located
-- **Manufacturer ID**: The ID of the manufacturer
-- **Model ID**: The ID of the model
-- **Operating System ID**: The ID of the operating system
-- **Hostname**: The hostname of the configuration
-- **Primary IP**: The primary IP address of the configuration
-- **MAC Address**: The MAC address of the configuration
-- **Serial Number**: The serial number of the configuration
-- **Asset Tag**: The asset tag of the configuration
-- **Installed By**: Who installed the configuration
-- **Purchased At**: When the configuration was purchased
-- **Installed At**: When the configuration was installed
-- **Warranty Expires At**: When the warranty expires
-- **Notes**: Additional notes for the configuration
+**Update Fields** (Optional Collection):
+Add only the fields you want to update:
+
+### Basic Information
+- **Name**: Configuration name
+- **Hostname**: Device hostname
+- **Notes**: Additional notes
+
+### Network Information
+- **Primary IP**: IPv4/IPv6 address
+- **MAC Address**: Network MAC address (17 char limit)
+- **Default Gateway**: Network gateway
+
+### Asset Information
+- **Serial Number**: Device serial number
+- **Asset Tag**: Asset tracking tag
+- **Position**: Physical position/location
+
+### Relationships (with Dropdowns)
+- **Configuration Status Name or ID**: Choose from available statuses
+- **Configuration Type Name or ID**: Choose from available types
+- **Contact Name or ID**: Choose from available contacts
+- **Location Name or ID**: Choose from available locations
+- **Manufacturer Name or ID**: Choose from available manufacturers
+- **Model Name or ID**: Choose from available models
+- **Operating System Name or ID**: Choose from available OS options
+
+### Purchase/Installation Information
+- **Purchased At**: Purchase date
+- **Purchased By**: Who purchased it
+- **Installed At**: Installation date
+- **Installed By**: Who installed it
+- **Warranty Expires At**: Warranty expiration
+
+### MITP Information
+- **MITP Device Expiration Date**: MITP device expiry
+- **MITP End of Life Date**: MITP EOL date
+
+### System Information
+- **Operating System Notes**: OS-specific notes
+- **Organization ID**: Parent organization (for nested routes)
+
+### Status Flags
+- **Archived**: Whether configuration is archived
+- **Restricted**: Whether configuration is restricted
 
 ## Bulk Update
 

@@ -45,13 +45,21 @@ Create a new password entry in IT Glue.
 
 ## Update
 
-Update an existing password entry.
+Update an existing password entry using PATCH methodology - only specify the fields you want to change.
 
 **Required Parameters:**
 - **Password ID**: The ID of the password to update
 
-**Optional Parameters:**
-- **Update Fields**: Collection of fields to update including name, username, password, category, URL, notes, and access settings
+**Update Fields** (Optional Collection):
+Add only the fields you want to update:
+- **Name**: The name of the password entry
+- **Notes**: Additional notes for the password
+- **Password**: The actual password value (securely handled)
+- **Password Category ID**: The password category identifier
+- **Restricted**: Whether the password is restricted
+- **Show Password**: Whether to show the password in plain text
+- **URL**: The URL associated with the password
+- **Username**: The username associated with the password
 
 ## Delete
 

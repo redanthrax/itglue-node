@@ -11,17 +11,22 @@ export async function update(
 	const id = this.getNodeParameter('id', index) as string;
 	const endpoint = `configuration_statuses/${id}`;
 	
-	const name = this.getNodeParameter('name', index) as string;
-	
 	const body = {
 		data: {
 			type: 'configuration_statuses',
-			id: id,
-			attributes: {
-				name: name
-			}
+			attributes: {}
 		}
 	} as IDataObject;
+
+	// Get the update fields collection
+	const updateFields = this.getNodeParameter('updateFields', index) as IDataObject;
+
+	// Only add fields that are specified in updateFields
+	Object.entries(updateFields).forEach(([field, value]) => {
+		if (value !== '' && value !== null && value !== undefined) {
+			((body.data as IDataObject).attributes as IDataObject)[field] = value;
+		}
+	});
 
 	const responseData = await itglueRequest.call(this, index, requestMethod, endpoint, body, qs);
 	return this.helpers.returnJsonArray(responseData);

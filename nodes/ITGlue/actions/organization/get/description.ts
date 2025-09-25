@@ -62,16 +62,30 @@ export const organizationGetDescription: OrganizationProperties = [
 			},
 		},
 	options: [
-			{
-				displayName: 'Organization Name or ID',
-				name: 'id',
-				type: 'options',
-				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
-				default: '',
-				typeOptions: {
-					loadOptionsMethod: 'getOrganizations',
-				},
+		{
+			displayName: 'Organization ID',
+			name: 'id',
+			type: 'number',
+			default: '',
+			description: 'Filter by specific organization ID (alternative to dropdown selection)',
+		},
+		{
+			displayName: 'Organization Name (Text Search)',
+			name: 'name',
+			type: 'string',
+			default: '',
+			description: 'Filter by organization name using text search (supports partial matches)',
+		},
+		{
+			displayName: 'Organization Name or ID',
+			name: 'organization_select',
+			type: 'options',
+			description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
+			default: '',
+			typeOptions: {
+				loadOptionsMethod: 'getOrganizations',
 			},
+		},
 			{
 				displayName: 'Organization Status Name or ID',
 				name: 'organization_status_id',

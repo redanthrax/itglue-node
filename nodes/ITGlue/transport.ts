@@ -115,10 +115,7 @@ export async function apiRequestAllItems(
 		responseData = resp['data'] as IDataObject[];
 		returnData = returnData.concat(responseData);
 		
-		// Log progress for large datasets
-		if (currentPage % 10 === 0) {
-			console.log(`IT Glue API: Retrieved ${returnData.length} items (page ${currentPage})`);
-		}
+		// Continue pagination for large datasets
 		
 		if(responseData.length < (qs["page[size]"] as number)) {
 			break;

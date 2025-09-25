@@ -43,13 +43,17 @@ Create a new flexible asset in IT Glue.
 
 ## Update
 
-Update an existing flexible asset.
+Update an existing flexible asset using PATCH methodology - only specify the fields you want to change.
 
 **Required Parameters:**
 - **Flexible Asset ID**: The ID of the flexible asset to update
 
-**Optional Parameters:**
-- **Update Fields**: Collection of fields to update including name, traits, notes, and access settings
+**Update Fields** (Optional Collection):
+Add only the fields you want to update:
+- **Name**: The name of the flexible asset
+- **Notes**: Additional notes for the flexible asset
+- **Restricted**: Whether the flexible asset is restricted
+- **Traits**: JSON object containing the flexible asset traits/fields to update (e.g., `{"field_name": "new_value", "another_field": "updated_value"}`)
 
 ## Delete
 

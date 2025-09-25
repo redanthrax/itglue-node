@@ -16,240 +16,230 @@ export const configurationUpdateDescription: ConfigurationProperties = [
 		},
 	},
 	{
-		displayName: 'Name',
-		name: 'name',
-		type: 'string',
-		default: '',
-		description: 'The new name for the configuration',
+		displayName: 'Update Fields',
+		name: 'updateFields',
+		type: 'collection',
+		placeholder: 'Add Field',
+		default: {},
+		description: 'Fields to update (only specified fields will be changed)',
 		displayOptions: {
 			show: {
 				resource: ['configuration'],
 				operation: ['update'],
 			},
 		},
-	},
-	{
-		displayName: 'Hostname',
-		name: 'hostname',
-		type: 'string',
-		default: '',
-		description: 'The hostname of the configuration',
-		displayOptions: {
-			show: {
-				resource: ['configuration'],
-				operation: ['update'],
+		options: [
+			{
+				displayName: 'Archived',
+				name: 'archived',
+				type: 'boolean',
+				default: false,
+				description: 'Whether the configuration is archived',
 			},
-		},
-	},
-	{
-		displayName: 'Primary IP',
-		name: 'primaryIp',
-		type: 'string',
-		default: '',
-		description: 'The primary IP address of the configuration',
-		displayOptions: {
-			show: {
-				resource: ['configuration'],
-				operation: ['update'],
+			{
+				displayName: 'Asset Tag',
+				name: 'assetTag',
+				type: 'string',
+				default: '',
+				description: 'The asset tag of the configuration',
 			},
-		},
-	},
-	{
-		displayName: 'Configuration Type ID',
-		name: 'configurationTypeId',
-		type: 'number',
-		default: '',
-		description: 'The ID of the configuration type',
-		displayOptions: {
-			show: {
-				resource: ['configuration'],
-				operation: ['update'],
+			{
+				displayName: 'Configuration Status Name or ID',
+				name: 'configurationStatusId',
+				type: 'options',
+				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
+				default: '',
+				typeOptions: {
+					loadOptionsMethod: 'getConfigurationStatuses',
+				},
 			},
-		},
-	},
-	{
-		displayName: 'Configuration Status ID',
-		name: 'configurationStatusId',
-		type: 'number',
-		default: '',
-		description: 'The ID of the configuration status',
-		displayOptions: {
-			show: {
-				resource: ['configuration'],
-				operation: ['update'],
+			{
+				displayName: 'Configuration Type Name or ID',
+				name: 'configurationTypeId',
+				type: 'options',
+				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
+				default: '',
+				typeOptions: {
+					loadOptionsMethod: 'getConfigurationTypes',
+				},
 			},
-		},
-	},
-	{
-		displayName: 'MAC Address',
-		name: 'macAddress',
-		type: 'string',
-		default: '',
-		description: 'The MAC address of the configuration',
-		displayOptions: {
-			show: {
-				resource: ['configuration'],
-				operation: ['update'],
+			{
+				displayName: 'Contact Name or ID',
+				name: 'contactId',
+				type: 'options',
+				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
+				default: '',
+				typeOptions: {
+					loadOptionsMethod: 'getContacts',
+				},
 			},
-		},
-	},
-	{
-		displayName: 'Serial Number',
-		name: 'serialNumber',
-		type: 'string',
-		default: '',
-		description: 'The serial number of the configuration',
-		displayOptions: {
-			show: {
-				resource: ['configuration'],
-				operation: ['update'],
+			{
+				displayName: 'Default Gateway',
+				name: 'defaultGateway',
+				type: 'string',
+				default: '',
+				description: 'The default gateway of the configuration',
 			},
-		},
-	},
-	{
-		displayName: 'Asset Tag',
-		name: 'assetTag',
-		type: 'string',
-		default: '',
-		description: 'The asset tag of the configuration',
-		displayOptions: {
-			show: {
-				resource: ['configuration'],
-				operation: ['update'],
+			{
+				displayName: 'Hostname',
+				name: 'hostname',
+				type: 'string',
+				default: '',
+				description: 'The hostname of the configuration',
 			},
-		},
-	},
-	{
-		displayName: 'Contact ID',
-		name: 'contactId',
-		type: 'number',
-		default: '',
-		description: 'The ID of the contact associated with this configuration',
-		displayOptions: {
-			show: {
-				resource: ['configuration'],
-				operation: ['update'],
+			{
+				displayName: 'Installed At',
+				name: 'installedAt',
+				type: 'dateTime',
+				default: '',
+				description: 'When the configuration was installed',
 			},
-		},
-	},
-	{
-		displayName: 'Location ID',
-		name: 'locationId',
-		type: 'number',
-		default: '',
-		description: 'The ID of the location where this configuration is located',
-		displayOptions: {
-			show: {
-				resource: ['configuration'],
-				operation: ['update'],
+			{
+				displayName: 'Installed By',
+				name: 'installedBy',
+				type: 'string',
+				default: '',
+				description: 'Who installed the configuration',
 			},
-		},
-	},
-	{
-		displayName: 'Manufacturer ID',
-		name: 'manufacturerId',
-		type: 'number',
-		default: '',
-		description: 'The ID of the manufacturer',
-		displayOptions: {
-			show: {
-				resource: ['configuration'],
-				operation: ['update'],
+			{
+				displayName: 'Location Name or ID',
+				name: 'locationId',
+				type: 'options',
+				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
+				default: '',
+				typeOptions: {
+					loadOptionsMethod: 'getLocations',
+				},
 			},
-		},
-	},
-	{
-		displayName: 'Model ID',
-		name: 'modelId',
-		type: 'number',
-		default: '',
-		description: 'The ID of the model',
-		displayOptions: {
-			show: {
-				resource: ['configuration'],
-				operation: ['update'],
+			{
+				displayName: 'MAC Address',
+				name: 'macAddress',
+				type: 'string',
+				default: '',
+				description: 'The MAC address of the configuration (17 character limit)',
 			},
-		},
-	},
-	{
-		displayName: 'Operating System ID',
-		name: 'operatingSystemId',
-		type: 'number',
-		default: '',
-		description: 'The ID of the operating system',
-		displayOptions: {
-			show: {
-				resource: ['configuration'],
-				operation: ['update'],
+			{
+				displayName: 'Manufacturer Name or ID',
+				name: 'manufacturerId',
+				type: 'options',
+				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
+				default: '',
+				typeOptions: {
+					loadOptionsMethod: 'getManufacturers',
+				},
 			},
-		},
-	},
-	{
-		displayName: 'Installed By',
-		name: 'installedBy',
-		type: 'string',
-		default: '',
-		description: 'Who installed the configuration',
-		displayOptions: {
-			show: {
-				resource: ['configuration'],
-				operation: ['update'],
+			{
+				displayName: 'MITP Device Expiration Date',
+				name: 'mitpDeviceExpirationDate',
+				type: 'dateTime',
+				default: '',
 			},
-		},
-	},
-	{
-		displayName: 'Purchased At',
-		name: 'purchasedAt',
-		type: 'dateTime',
-		default: '',
-		description: 'When the configuration was purchased',
-		displayOptions: {
-			show: {
-				resource: ['configuration'],
-				operation: ['update'],
+			{
+				displayName: 'MITP End of Life Date',
+				name: 'mitpEndOfLifeDate',
+				type: 'dateTime',
+				default: '',
 			},
-		},
-	},
-	{
-		displayName: 'Installed At',
-		name: 'installedAt',
-		type: 'dateTime',
-		default: '',
-		description: 'When the configuration was installed',
-		displayOptions: {
-			show: {
-				resource: ['configuration'],
-				operation: ['update'],
+			{
+				displayName: 'Model Name or ID',
+				name: 'modelId',
+				type: 'options',
+				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
+				default: '',
+				typeOptions: {
+					loadOptionsMethod: 'getModels',
+				},
 			},
-		},
-	},
-	{
-		displayName: 'Warranty Expires At',
-		name: 'warrantyExpiresAt',
-		type: 'dateTime',
-		default: '',
-		description: 'When the warranty expires',
-		displayOptions: {
-			show: {
-				resource: ['configuration'],
-				operation: ['update'],
+			{
+				displayName: 'Name',
+				name: 'name',
+				type: 'string',
+				default: '',
+				description: 'The name of the configuration',
 			},
-		},
-	},
-	{
-		displayName: 'Notes',
-		name: 'notes',
-		type: 'string',
-		typeOptions: {
-			alwaysOpenEditWindow: true,
-		},
-		default: '',
-		description: 'Additional notes for the configuration',
-		displayOptions: {
-			show: {
-				resource: ['configuration'],
-				operation: ['update'],
+			{
+				displayName: 'Notes',
+				name: 'notes',
+				type: 'string',
+				typeOptions: {
+					alwaysOpenEditWindow: true,
+				},
+				default: '',
+				description: 'Additional notes for the configuration',
 			},
-		},
+			{
+				displayName: 'Operating System Name or ID',
+				name: 'operatingSystemId',
+				type: 'options',
+				description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
+				default: '',
+				typeOptions: {
+					loadOptionsMethod: 'getOperatingSystems',
+				},
+			},
+			{
+				displayName: 'Operating System Notes',
+				name: 'operatingSystemNotes',
+				type: 'string',
+				default: '',
+				description: 'Notes about the operating system',
+			},
+			{
+				displayName: 'Organization ID',
+				name: 'organizationId',
+				type: 'number',
+				default: '',
+				description: 'The organization ID (not required when using nested relationship routes)',
+			},
+			{
+				displayName: 'Position',
+				name: 'position',
+				type: 'string',
+				default: '',
+				description: 'The position of the configuration',
+			},
+			{
+				displayName: 'Primary IP',
+				name: 'primaryIp',
+				type: 'string',
+				default: '',
+				description: 'The primary IP address of the configuration (IPv4 and IPv6 supported)',
+			},
+			{
+				displayName: 'Purchased At',
+				name: 'purchasedAt',
+				type: 'dateTime',
+				default: '',
+				description: 'When the configuration was purchased',
+			},
+			{
+				displayName: 'Purchased By',
+				name: 'purchasedBy',
+				type: 'string',
+				default: '',
+				description: 'Who purchased the configuration',
+			},
+			{
+				displayName: 'Restricted',
+				name: 'restricted',
+				type: 'boolean',
+				default: false,
+				description: 'Whether the configuration is restricted',
+			},
+			{
+				displayName: 'Serial Number',
+				name: 'serialNumber',
+				type: 'string',
+				default: '',
+				description: 'The serial number of the configuration',
+			},
+			{
+				displayName: 'Warranty Expires At',
+				name: 'warrantyExpiresAt',
+				type: 'dateTime',
+				default: '',
+				description: 'When the warranty expires',
+			},
+		],
 	},
 ];

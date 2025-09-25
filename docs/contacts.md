@@ -44,13 +44,22 @@ Create a new contact in IT Glue.
 
 ## Update
 
-Update an existing contact.
+Update an existing contact using PATCH methodology - only specify the fields you want to change.
 
 **Required Parameters:**
 - **Contact ID**: The ID of the contact to update
 
-**Optional Parameters:**
-- **Update Fields**: Collection of fields to update including name, contact information, type, and notes
+**Update Fields** (Optional Collection):
+Add only the fields you want to update:
+- **Contact Type Name or ID**: Choose from available contact types
+- **First Name**: The first name of the contact
+- **Last Name**: The last name of the contact
+- **Title**: The title of the contact
+- **Primary Email**: The primary email address of the contact
+- **Phone**: The phone number of the contact
+- **Mobile**: The mobile phone number of the contact
+- **Notes**: Additional notes for the contact
+- **Important**: Whether the contact is marked as important
 
 ## Delete
 

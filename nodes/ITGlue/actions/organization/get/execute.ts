@@ -17,6 +17,13 @@ export async function get(
 		if (filters.id) {
 			qs['filter[id]'] = filters.id;
 		}
+		if (filters.name) {
+			// Text search by organization name
+			qs['filter[name]'] = filters.name;
+		}
+		if (filters.organization_select) {
+			qs['filter[id]'] = filters.organization_select;
+		}
 		if (filters.organization_status_id) {
 			qs['filter[organization_status_id]'] = filters.organization_status_id;
 		}

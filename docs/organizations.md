@@ -2,25 +2,29 @@
 
 ## Get
 
-Retrieve organization data from IT Glue with flexible filtering options.
+Retrieve organization data from IT Glue with flexible filtering and pagination options.
 
 **Parameters:**
-- **All Organizations**: Whether to get all organizations or just one specific organization (default: true)
+- **Return All**: Whether to return all results or use pagination (default: false)
+- **Limit**: Maximum number of results per page when not returning all (default: 50, min: 1)
+- **Page Number**: Specific page for pagination (starts at 1)
 
-### Get All Organizations
-When "All Organizations" is enabled, retrieve multiple organizations with optional filtering:
+### Filters
+Optional collection of filter options:
+- **Organization ID**: Filter by specific organization ID
+- **Organization Name (Text Search)**: Filter by organization name using text search (supports partial matches)
+- **Organization**: Choose from dropdown list of organizations
+- **Organization Status Name or ID**: Choose from dropdown or specify ID
+- **Organization Type Name or ID**: Choose from dropdown or specify ID
 
-- **Filters**: Collection of filter options including:
-  - **Limit**: Maximum number of organizations to return (default: 50, min: 1)
-  - **Organization ID**: Filter by specific organization ID
-  - **Organization Name**: Filter by organization name
-  - **Organization Status Name or ID**: Filter by organization status (dynamically loaded from available statuses)
-  - **Organization Type Name or ID**: Filter by organization type (dynamically loaded from available types)
-
-### Get Single Organization
-When "All Organizations" is disabled:
-
-- **Organization**: Organization ID to retrieve with full notes and detailed information
+### Options
+- **Include**: Related resources to include:
+  - Organization Type
+  - Organization Status
+- **Sort**: Sort order options:
+  - Created (Newest/Oldest First)
+  - Name (A-Z, Z-A)
+  - Updated (Newest/Oldest First)
 
 ## Create
 
@@ -37,20 +41,20 @@ Create a new organization in IT Glue.
 
 ## Update
 
-Update an existing organization in IT Glue.
+Update an existing organization using PATCH methodology - only specify the fields you want to change.
 
 **Required Parameters:**
-- **Organization ID**: The ID of the organization to update
+- **Organization Name or ID**: Choose from dropdown or specify ID
 
-**Optional Parameters:**
-- **Attributes**: Collection of attributes to update including:
-  - **Alert**: Update the organization alert
-  - **Description**: Update the organization description
-  - **Name**: Update the organization name
-  - **Organization Status Name or ID**: Update the organization status (dynamically loaded)
-  - **Organization Type Name or ID**: Update the organization type (dynamically loaded)
-  - **Quick Notes**: Add or update quick notes
-  - **Short Name**: Update the organization short name
+**Attributes** (Optional Collection):
+Add only the fields you want to update:
+- **Alert**: Update the organization alert
+- **Description**: Update the organization description
+- **Name**: Update the organization name
+- **Organization Status Name or ID**: Choose from available statuses
+- **Organization Type Name or ID**: Choose from available types
+- **Quick Notes**: Add or update quick notes
+- **Short Name**: Update the organization short name
 
 ## Error Handling
 

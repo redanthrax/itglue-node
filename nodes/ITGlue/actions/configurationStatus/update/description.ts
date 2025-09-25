@@ -16,17 +16,26 @@ export const configurationStatusUpdateDescription: ConfigurationStatusProperties
 		},
 	},
 	{
-		displayName: 'Name',
-		name: 'name',
-		type: 'string',
-		default: '',
-		required: true,
-		description: 'The new name for the configuration status',
+		displayName: 'Update Fields',
+		name: 'updateFields',
+		type: 'collection',
+		placeholder: 'Add Field',
+		default: {},
+		description: 'Fields to update (only specified fields will be changed)',
 		displayOptions: {
 			show: {
 				resource: ['configurationStatus'],
 				operation: ['update'],
 			},
 		},
+		options: [
+			{
+				displayName: 'Name',
+				name: 'name',
+				type: 'string',
+				default: '',
+				description: 'The name of the configuration status',
+			},
+		],
 	},
 ];

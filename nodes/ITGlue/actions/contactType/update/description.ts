@@ -16,17 +16,26 @@ export const contactTypeUpdateDescription: ContactTypeProperties = [
 		},
 	},
 	{
-		displayName: 'Name',
-		name: 'name',
-		type: 'string',
-		default: '',
-		required: true,
-		description: 'The new name for the contact type',
+		displayName: 'Update Fields',
+		name: 'updateFields',
+		type: 'collection',
+		placeholder: 'Add Field',
+		default: {},
+		description: 'Fields to update (only specified fields will be changed)',
 		displayOptions: {
 			show: {
 				resource: ['contactType'],
 				operation: ['update'],
 			},
 		},
+		options: [
+			{
+				displayName: 'Name',
+				name: 'name',
+				type: 'string',
+				default: '',
+				description: 'The name of the contact type',
+			},
+		],
 	},
 ];
