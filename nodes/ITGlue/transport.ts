@@ -66,11 +66,8 @@ export async function apiRequest(
 		options.body = body;
 	}
 
-	// Rate limiting with exponential backoff
-	await new Promise(resolve => setTimeout(resolve, 200));
-
 	try {
-		const responseData = (await this.helpers.request(options)) as IDataObject;
+		const responseData = (await this.helpers.httpRequest(options)) as IDataObject;
 		return responseData;
 	} catch (error) {
 		// Enhanced error handling for n8n
