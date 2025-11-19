@@ -1,4 +1,6 @@
 import {
+		IAuthenticateGeneric,
+		ICredentialTestRequest,
 		ICredentialType,
 		INodeProperties,
 } from 'n8n-workflow';
@@ -40,4 +42,22 @@ export class ITGlueApi implements ICredentialType {
 			default: '',
 		},
 	];
+
+	authenticate: IAuthenticateGeneric = {
+		type: 'generic',
+		properties: {
+			headers: {
+				'X-API-KEY': '={{$credentials.apiKey}}',
+				'Content-Type': 'application/vnd.api+json',
+			},
+		},
+	};
+
+	test: ICredentialTestRequest = {
+		request: {
+			baseURL: '={{"https://" + $credentials.region + ".itglue.com"}}',
+			url: '/organizations',
+			method: 'GET',
+		},
+	};
 }
