@@ -2,7 +2,7 @@ import { FlexibleAssetProperties } from '../../interfaces';
 
 export const flexibleAssetGetDescription: FlexibleAssetProperties = [
 	{
-		displayName: 'Flexible Asset Type',
+		displayName: 'Flexible Asset Type Name or ID',
 		name: 'flexibleAssetTypeId',
 		type: 'options',
 		typeOptions: {
@@ -16,7 +16,7 @@ export const flexibleAssetGetDescription: FlexibleAssetProperties = [
 		},
 		required: true,
 		default: '',
-		description: 'The flexible asset type to retrieve assets for',
+		description: 'The flexible asset type to retrieve assets for. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 	},
 	{
 		displayName: 'Return All',
