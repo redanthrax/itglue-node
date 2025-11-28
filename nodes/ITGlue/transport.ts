@@ -52,9 +52,7 @@ export async function apiRequest(
 	const options: IHttpRequestOptions = {
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/vnd.api+json',
-			'X-API-KEY': `${creds.apiKey}`,
-			'User-Agent': 'n8n-itglue-node/0.3.0', // Add user agent for better API tracking
+			'User-Agent': 'n8n-itglue-node/0.3.0',
 		},
 		method,
 		qs,
@@ -67,7 +65,7 @@ export async function apiRequest(
 	}
 
 	try {
-		const responseData = (await this.helpers.httpRequest(options)) as IDataObject;
+		const responseData = (await this.helpers.httpRequestWithAuthentication.call(this, 'itglueApi', options)) as IDataObject;
 		return responseData;
 	} catch (error) {
 		// Enhanced error handling for n8n

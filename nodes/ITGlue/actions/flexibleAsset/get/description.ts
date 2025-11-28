@@ -2,6 +2,23 @@ import { FlexibleAssetProperties } from '../../interfaces';
 
 export const flexibleAssetGetDescription: FlexibleAssetProperties = [
 	{
+		displayName: 'Flexible Asset Type',
+		name: 'flexibleAssetTypeId',
+		type: 'options',
+		typeOptions: {
+			loadOptionsMethod: 'getFlexibleAssetTypes',
+		},
+		displayOptions: {
+			show: {
+				resource: ['flexibleAsset'],
+				operation: ['get'],
+			},
+		},
+		required: true,
+		default: '',
+		description: 'The flexible asset type to retrieve assets for',
+	},
+	{
 		displayName: 'Return All',
 		name: 'returnAll',
 		type: 'boolean',
@@ -50,13 +67,6 @@ export const flexibleAssetGetDescription: FlexibleAssetProperties = [
 				type: 'string',
 				default: '',
 				description: 'Filter by created date (ISO format)',
-			},
-			{
-				displayName: 'Flexible Asset Type ID',
-				name: 'flexible_asset_type_id',
-				type: 'string',
-				default: '',
-				description: 'Filter by flexible asset type ID',
 			},
 			{
 				displayName: 'Name',

@@ -5,12 +5,15 @@ export async function flexibleAssetGet(
 	this: IExecuteFunctions,
 	index: number,
 ): Promise<INodeExecutionData[]> {
+	const flexibleAssetTypeId = this.getNodeParameter('flexibleAssetTypeId', index) as string;
 	const returnAll = this.getNodeParameter('returnAll', index);
 	const filters = this.getNodeParameter('filters', index) as IDataObject;
 	const options = this.getNodeParameter('options', index) as IDataObject;
 
 	const endpoint = '/flexible_assets';
-	const qs: IDataObject = {};
+	const qs: IDataObject = {
+		'filter[flexible-asset-type-id]': flexibleAssetTypeId,
+	};
 
 	if (filters) {
 		Object.assign(qs, filters);

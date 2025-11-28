@@ -17,10 +17,10 @@ export const description: INodeProperties[] = [
 		},
 		options: [
 			{
-				name: 'Get',
+				name: 'Get Many',
 				value: 'get',
-				description: 'Get data from the Domains endpoint',
-				action: 'Get domains data',
+				description: 'Get domains',
+				action: 'Get many domains',
 			},
 		],
 		default: 'get',

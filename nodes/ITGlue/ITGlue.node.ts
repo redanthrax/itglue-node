@@ -53,6 +53,7 @@ export class ITGlue implements INodeType {
 		defaults: {
 			name: 'IT Glue',
 		},
+		usableAsTool: true,
 		inputs: [NodeConnectionType.Main],
 		outputs: [NodeConnectionType.Main],
 		credentials: [
@@ -61,12 +62,6 @@ export class ITGlue implements INodeType {
 				required: true,
 			},
 		],
-		requestDefaults: {
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/vnd.api+json',
-			},
-		},
 		properties: [
 			{
 				displayName: 'Resource',
