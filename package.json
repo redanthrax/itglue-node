@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-itglue",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "An n8n node to connect to IT Glue",
   "keywords": [
     "n8n-nodes-itglue",
