@@ -10,6 +10,8 @@ import * as configurationType from './actions/configurationType';
 import * as contactType from './actions/contactType';
 import * as country from './actions/country';
 import * as document from './actions/document';
+import * as documentSection from './actions/documentSection';
+import * as documentImage from './actions/documentImage';
 import * as expiration from './actions/expiration';
 import * as group from './actions/group';
 import * as location from './actions/location';
@@ -104,6 +106,14 @@ export class ITGlue implements INodeType {
 					{
 						name: 'Document',
 						value: 'document',
+					},
+					{
+						name: 'Document Image',
+						value: 'documentImage',
+					},
+					{
+						name: 'Document Section',
+						value: 'documentSection',
 					},
 					{
 						name: 'Domain',
@@ -204,7 +214,9 @@ export class ITGlue implements INodeType {
 			...contact.descriptions,
 			...contactType.descriptions,
 			...country.descriptions,
-			...document.descriptions,
+			...document.description,
+			...documentImage.description,
+			...documentSection.description,
 			...domain.description,
 			...exportResource.descriptions,
 			...expiration.descriptions,

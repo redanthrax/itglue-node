@@ -3,32 +3,32 @@ import { itglueRequest } from '../../transport';
 
 export const description: INodeProperties[] = [
 	{
-		displayName: 'Organization ID',
-		name: 'organizationId',
+		displayName: 'Document ID',
+		name: 'documentId',
 		type: 'number',
 		required: true,
 		displayOptions: {
 			show: {
-				resource: ['document'],
+				resource: ['documentSection'],
 				operation: ['create'],
 			},
 		},
 		default: 0,
-		description: 'Organization ID to create document for',
+		description: 'ID of the parent document',
 	},
 	{
-		displayName: 'Document Name',
-		name: 'documentName',
+		displayName: 'Section Name',
+		name: 'sectionName',
 		type: 'string',
 		required: true,
 		displayOptions: {
 			show: {
-				resource: ['document'],
+				resource: ['documentSection'],
 				operation: ['create'],
 			},
 		},
 		default: '',
-		description: 'Name of the document',
+		description: 'Name of the document section',
 	},
 	{
 		displayName: 'Additional Fields',
@@ -38,52 +38,41 @@ export const description: INodeProperties[] = [
 		default: {},
 		displayOptions: {
 			show: {
-				resource: ['document'],
+				resource: ['documentSection'],
 				operation: ['create'],
 			},
 		},
 		options: [
 			{
-				displayName: 'Description',
-				name: 'description',
+				displayName: 'Body',
+				name: 'body',
 				type: 'string',
 				typeOptions: {
-					rows: 3,
+					rows: 5,
 				},
 				default: '',
-				description: 'Description of the document',
-			},
-			{
-				displayName: 'Restricted',
-				name: 'restricted',
-				type: 'boolean',
-				default: false,
-				description: 'Whether the document is restricted',
+				description: 'Body content of the document section',
 			},
 		],
 	},
 ];
 
 export async function execute(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
-	const organizationId = this.getNodeParameter('organizationId', index) as number;
-	const documentName = this.getNodeParameter('documentName', index) as string;
+	const documentId = this.getNodeParameter('documentId', index) as number;
+	const sectionName = this.getNodeParameter('sectionName', index) as string;
 	const additionalFields = this.getNodeParameter('additionalFields', index, {}) as IDataObject;
 
 	const attributes: IDataObject = {
-		name: documentName,
+		name: sectionName,
 	};
 
-	if (additionalFields.description !== undefined) {
-		attributes.description = additionalFields.description;
-	}
-
-	if (additionalFields.restricted !== undefined) {
-		attributes.restricted = additionalFields.restricted;
+	if (additionalFields.body !== undefined) {
+		attributes.body = additionalFields.body;
 	}
 
 	const body: IDataObject = {
 		data: {
-			type: 'documents',
+			type: 'document_sections',
 			attributes,
 		},
 	};
@@ -92,7 +81,7 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 		this,
 		index,
 		'POST',
-		`organizations/${organizationId}/relationships/documents`,
+		`documents/${documentId}/relationships/document_sections`,
 		body,
 	);
 

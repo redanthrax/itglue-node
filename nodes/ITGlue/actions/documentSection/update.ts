@@ -9,12 +9,26 @@ export const description: INodeProperties[] = [
 		required: true,
 		displayOptions: {
 			show: {
-				resource: ['document'],
+				resource: ['documentSection'],
 				operation: ['update'],
 			},
 		},
 		default: 0,
-		description: 'ID of the document to update',
+		description: 'ID of the parent document',
+	},
+	{
+		displayName: 'Section ID',
+		name: 'sectionId',
+		type: 'number',
+		required: true,
+		displayOptions: {
+			show: {
+				resource: ['documentSection'],
+				operation: ['update'],
+			},
+		},
+		default: 0,
+		description: 'ID of the document section to update',
 	},
 	{
 		displayName: 'Update Fields',
@@ -24,34 +38,27 @@ export const description: INodeProperties[] = [
 		default: {},
 		displayOptions: {
 			show: {
-				resource: ['document'],
+				resource: ['documentSection'],
 				operation: ['update'],
 			},
 		},
 		options: [
 			{
-				displayName: 'Description',
-				name: 'description',
+				displayName: 'Body',
+				name: 'body',
 				type: 'string',
 				typeOptions: {
-					rows: 3,
+					rows: 5,
 				},
 				default: '',
-				description: 'Description of the document',
+				description: 'Body content of the document section',
 			},
 			{
 				displayName: 'Name',
 				name: 'name',
 				type: 'string',
 				default: '',
-				description: 'Name of the document',
-			},
-			{
-				displayName: 'Restricted',
-				name: 'restricted',
-				type: 'boolean',
-				default: false,
-				description: 'Whether the document is restricted',
+				description: 'Name of the document section',
 			},
 		],
 	},
@@ -59,6 +66,7 @@ export const description: INodeProperties[] = [
 
 export async function execute(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
 	const documentId = this.getNodeParameter('documentId', index) as number;
+	const sectionId = this.getNodeParameter('sectionId', index) as number;
 	const updateFields = this.getNodeParameter('updateFields', index, {}) as IDataObject;
 
 	const attributes: IDataObject = {};
@@ -67,17 +75,13 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 		attributes.name = updateFields.name;
 	}
 
-	if (updateFields.description !== undefined) {
-		attributes.description = updateFields.description;
-	}
-
-	if (updateFields.restricted !== undefined) {
-		attributes.restricted = updateFields.restricted;
+	if (updateFields.body !== undefined) {
+		attributes.body = updateFields.body;
 	}
 
 	const body: IDataObject = {
 		data: {
-			type: 'documents',
+			type: 'document_sections',
 			attributes,
 		},
 	};
@@ -86,7 +90,7 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 		this,
 		index,
 		'PATCH',
-		`documents/${documentId}`,
+		`documents/${documentId}/relationships/document_sections/${sectionId}`,
 		body,
 	);
 

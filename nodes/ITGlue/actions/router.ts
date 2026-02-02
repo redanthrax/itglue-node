@@ -18,6 +18,8 @@ import * as configurationType from './configurationType';
 import * as contactType from './contactType';
 import * as country from './country';
 import * as document from './document';
+import * as documentSection from './documentSection';
+import * as documentImage from './documentImage';
 import * as expiration from './expiration';
 import * as group from './group';
 import * as location from './location';
@@ -91,8 +93,43 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 					case 'bulkUpdate':
 						responseData = await document.bulkUpdate.execute.call(this, i);
 						break;
+					case 'publish':
+						responseData = await document.publish.execute.call(this, i);
+						break;
 					case 'delete':
 						responseData = await document.delete.execute.call(this, i);
+						break;
+				}
+				break;
+				case 'documentSection':
+				switch (itglue.operation) {
+					case 'get':
+						responseData = await documentSection.get.execute.call(this, i);
+						break;
+					case 'getById':
+						responseData = await documentSection.getById.execute.call(this, i);
+						break;
+					case 'create':
+						responseData = await documentSection.create.execute.call(this, i);
+						break;
+					case 'update':
+						responseData = await documentSection.update.execute.call(this, i);
+						break;
+					case 'delete':
+						responseData = await documentSection.delete.execute.call(this, i);
+						break;
+				}
+				break;
+				case 'documentImage':
+				switch (itglue.operation) {
+					case 'getById':
+						responseData = await documentImage.getById.execute.call(this, i);
+						break;
+					case 'create':
+						responseData = await documentImage.create.execute.call(this, i);
+						break;
+					case 'delete':
+						responseData = await documentImage.delete.execute.call(this, i);
 						break;
 				}
 				break;
