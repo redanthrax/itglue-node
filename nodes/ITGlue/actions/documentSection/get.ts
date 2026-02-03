@@ -63,7 +63,7 @@ export const description: INodeProperties[] = [
 				displayName: 'Section ID',
 				name: 'id',
 				type: 'number',
-				default: '',
+				default: 0,
 				description: 'Filter by section ID',
 			},
 		],
@@ -91,7 +91,7 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 		this,
 		index,
 		'GET',
-		`documents/${documentId}/relationships/document_sections`,
+		`documents/${documentId}/relationships/sections`,
 		{},
 		qs,
 	);

@@ -24,7 +24,7 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 	const responseData = await itglueRequest.call(
 		this,
 		index,
-		'POST',
+		'PATCH',
 		`documents/${documentId}/publish`,
 	);
 

@@ -40,7 +40,7 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 		this,
 		index,
 		'DELETE',
-		`documents/${documentId}/relationships/document_sections/${sectionId}`,
+		`documents/${documentId}/relationships/sections/${sectionId}`,
 	);
 
 	return responseData;
