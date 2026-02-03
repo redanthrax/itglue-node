@@ -93,14 +93,9 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 		qs['filter[manufacturer_id]'] = filters.manufacturer_id;
 	}
 
-	const responseData = await itglueRequest.call(
-		this,
-		index,
-		'GET',
-		'models',
-		{},
-		qs,
-	);
+	const responseData = await itglueRequest.call(this, index, 'GET', 'models', {}, qs, {
+		paginate: returnAll,
+	});
 
 	return responseData;
 }

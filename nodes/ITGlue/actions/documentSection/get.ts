@@ -72,7 +72,7 @@ export const description: INodeProperties[] = [
 
 export async function execute(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
 	const documentId = this.getNodeParameter('documentId', index) as number;
-	const returnAll = this.getNodeParameter('returnAll', index);
+	const returnAll = this.getNodeParameter('returnAll', index) as boolean;
 	const limit = this.getNodeParameter('limit', index, 50) as number;
 
 	const qs: IDataObject = {};
@@ -94,6 +94,7 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 		`documents/${documentId}/relationships/sections`,
 		{},
 		qs,
+		{ paginate: returnAll },
 	);
 
 	return responseData;

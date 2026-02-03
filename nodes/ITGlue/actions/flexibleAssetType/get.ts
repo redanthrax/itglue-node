@@ -90,6 +90,7 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 		'flexible_asset_types',
 		{},
 		qs,
+		{ paginate: returnAll },
 	);
 
 	return responseData;
