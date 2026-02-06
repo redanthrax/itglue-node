@@ -78,7 +78,7 @@ export const description: INodeProperties[] = [
 ];
 
 export async function execute(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
-	const returnAll = this.getNodeParameter('returnAll', index);
+	const returnAll = this.getNodeParameter('returnAll', index) as boolean;
 	const limit = this.getNodeParameter('limit', index, 50) as number;
 
 	const qs: IDataObject = {};
@@ -103,7 +103,9 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 		qs['filter[city]'] = filters.city;
 	}
 
-	const responseData = await itglueRequest.call(this, index, 'GET', 'locations', {}, qs);
+	const responseData = await itglueRequest.call(this, index, 'GET', 'locations', {}, qs, {
+		paginate: returnAll,
+	});
 
 	return responseData;
 }

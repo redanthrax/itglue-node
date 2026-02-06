@@ -3,8 +3,32 @@ import { itglueRequest } from '../../transport';
 
 export const description: INodeProperties[] = [
 	{
-		displayName: 'Document Section ID',
-		name: 'documentSectionId',
+		displayName: 'Target Type',
+		name: 'targetType',
+		type: 'options',
+		required: true,
+		displayOptions: {
+			show: {
+				resource: ['documentImage'],
+				operation: ['create'],
+			},
+		},
+		options: [
+			{
+				name: 'Gallery',
+				value: 'gallery',
+			},
+			{
+				name: 'Document (Inline)',
+				value: 'document',
+			},
+		],
+		default: 'gallery',
+		description: 'Whether the image is for a gallery section or inline in a document',
+	},
+	{
+		displayName: 'Target ID',
+		name: 'targetId',
 		type: 'number',
 		required: true,
 		displayOptions: {
@@ -14,7 +38,7 @@ export const description: INodeProperties[] = [
 			},
 		},
 		default: 0,
-		description: 'ID of the document section to upload the image to',
+		description: 'ID of the gallery or document to attach the image to',
 	},
 	{
 		displayName: 'Image Content (Base64)',
@@ -47,17 +71,22 @@ export const description: INodeProperties[] = [
 ];
 
 export async function execute(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
-	const documentSectionId = this.getNodeParameter('documentSectionId', index) as number;
+	const targetType = this.getNodeParameter('targetType', index) as string;
+	const targetId = this.getNodeParameter('targetId', index) as number;
 	const imageContent = this.getNodeParameter('imageContent', index) as string;
 	const fileName = this.getNodeParameter('fileName', index) as string;
 
 	const body: IDataObject = {
 		data: {
-			type: 'document_images',
+			type: 'document-images',
 			attributes: {
+				target: {
+					type: targetType,
+					id: targetId,
+				},
 				image: {
 					content: imageContent,
-					file_name: fileName,
+					'file-name': fileName,
 				},
 			},
 		},
@@ -67,7 +96,7 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 		this,
 		index,
 		'POST',
-		`document_sections/${documentSectionId}/relationships/document_images`,
+		'document_images',
 		body,
 	);
 

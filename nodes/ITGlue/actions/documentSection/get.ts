@@ -63,7 +63,7 @@ export const description: INodeProperties[] = [
 				displayName: 'Section ID',
 				name: 'id',
 				type: 'number',
-				default: '',
+				default: 0,
 				description: 'Filter by section ID',
 			},
 		],
@@ -72,7 +72,7 @@ export const description: INodeProperties[] = [
 
 export async function execute(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
 	const documentId = this.getNodeParameter('documentId', index) as number;
-	const returnAll = this.getNodeParameter('returnAll', index);
+	const returnAll = this.getNodeParameter('returnAll', index) as boolean;
 	const limit = this.getNodeParameter('limit', index, 50) as number;
 
 	const qs: IDataObject = {};
@@ -91,9 +91,10 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 		this,
 		index,
 		'GET',
-		`documents/${documentId}/relationships/document_sections`,
+		`documents/${documentId}/relationships/sections`,
 		{},
 		qs,
+		{ paginate: returnAll },
 	);
 
 	return responseData;

@@ -44,21 +44,42 @@ export const description: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'Body',
-				name: 'body',
+				displayName: 'Content',
+				name: 'content',
 				type: 'string',
 				typeOptions: {
 					rows: 5,
 				},
 				default: '',
-				description: 'Body content of the document section',
+				description: 'Content of the section (HTML for Text/Step, plain text for Heading)',
 			},
 			{
-				displayName: 'Name',
-				name: 'name',
-				type: 'string',
-				default: '',
-				description: 'Name of the document section',
+				displayName: 'Duration',
+				name: 'duration',
+				type: 'number',
+				default: 0,
+				description: 'Duration in minutes (for Step sections)',
+			},
+			{
+				displayName: 'Level',
+				name: 'level',
+				type: 'number',
+				default: 1,
+				description: 'Heading level 1-6 (for Heading sections)',
+			},
+			{
+				displayName: 'Reset Count',
+				name: 'resetCount',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to reset count (for Step sections)',
+			},
+			{
+				displayName: 'Sort',
+				name: 'sort',
+				type: 'number',
+				default: 0,
+				description: 'Sort order of the section',
 			},
 		],
 	},
@@ -71,17 +92,29 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 
 	const attributes: IDataObject = {};
 
-	if (updateFields.name) {
-		attributes.name = updateFields.name;
+	if (updateFields.content !== undefined) {
+		attributes.content = updateFields.content;
 	}
 
-	if (updateFields.body !== undefined) {
-		attributes.body = updateFields.body;
+	if (updateFields.level !== undefined) {
+		attributes.level = updateFields.level;
+	}
+
+	if (updateFields.duration !== undefined) {
+		attributes.duration = updateFields.duration;
+	}
+
+	if (updateFields.resetCount !== undefined) {
+		attributes['reset-count'] = updateFields.resetCount;
+	}
+
+	if (updateFields.sort !== undefined) {
+		attributes.sort = updateFields.sort;
 	}
 
 	const body: IDataObject = {
 		data: {
-			type: 'document_sections',
+			type: 'document-sections',
 			attributes,
 		},
 	};
@@ -90,7 +123,7 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 		this,
 		index,
 		'PATCH',
-		`documents/${documentId}/relationships/document_sections/${sectionId}`,
+		`documents/${documentId}/relationships/sections/${sectionId}`,
 		body,
 	);
 

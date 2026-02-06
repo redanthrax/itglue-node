@@ -48,7 +48,7 @@ export const description: INodeProperties[] = [
 ];
 
 export async function execute(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
-	const returnAll = this.getNodeParameter('returnAll', index);
+	const returnAll = this.getNodeParameter('returnAll', index) as boolean;
 	const limit = this.getNodeParameter('limit', index, 50) as number;
 	const flexibleAssetTypeId = this.getNodeParameter('flexibleAssetTypeId', index) as number;
 
@@ -69,6 +69,7 @@ export async function execute(this: IExecuteFunctions, index: number): Promise<I
 		'flexible_asset_fields',
 		{},
 		qs,
+		{ paginate: returnAll },
 	);
 
 	return responseData;
