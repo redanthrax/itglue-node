@@ -2,6 +2,19 @@
 
 An n8n community node for integrating with IT Glue API.
 
+## Development
+
+This repo uses **pnpm** with a committed lockfile and supply-chain controls in [`pnpm-workspace.yaml`](pnpm-workspace.yaml) (see [SECURITY.md](SECURITY.md)). Development requires **Node.js 22.22.3+**. After clone:
+
+```bash
+corepack enable && corepack prepare pnpm@10.19.0 --activate
+pnpm install --frozen-lockfile
+pnpm run audit:supply-chain
+pnpm run build
+```
+
+Use **pnpm only** for installs in this repo. With Corepack enabled, `npm install` and `yarn install` are rejected. Do not commit `package-lock.json` or `yarn.lock` (see [SECURITY.md](SECURITY.md)).
+
 ## Installation
 
 Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.

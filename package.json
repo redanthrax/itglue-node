@@ -16,17 +16,23 @@
     "type": "git",
     "url": "https://github.com/redanthrax/itglue-node.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
+  "packageManager": "pnpm@10.19.0",
   "engines": {
-    "node": ">=20.15"
+    "node": ">=22.22.3",
+    "pnpm": ">=10.19.0"
   },
   "main": "index.js",
   "scripts": {
-    "build": "npx rimraf dist && tsc && gulp build:icons",
-    "dev": "tsc --watch",
-    "format": "prettier nodes credentials --write",
-    "lint": "eslint nodes credentials package.json",
-    "lintfix": "eslint nodes credentials package.json --fix",
-    "prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js nodes credentials package.json"
+    "audit:supply-chain": "node scripts/check-supply-chain.mjs",
+    "build": "pnpm exec rimraf dist && pnpm exec tsc && pnpm exec gulp build:icons",
+    "dev": "pnpm exec tsc --watch",
+    "format": "pnpm exec prettier nodes credentials --write",
+    "lint": "pnpm exec eslint nodes credentials package.json",
+    "lintfix": "pnpm exec eslint nodes credentials package.json --fix",
+    "prepublishOnly": "pnpm run audit:supply-chain && pnpm run build && pnpm exec eslint -c .eslintrc.prepublish.js nodes credentials package.json"
   },
   "files": [
     "dist",
@@ -43,14 +49,15 @@
     ]
   },
   "devDependencies": {
-    "@types/node": "^24.5.0",
-    "@typescript-eslint/parser": "~8.32.0",
-    "eslint": "^8.57.0",
-    "eslint-plugin-n8n-nodes-base": "^1.16.3",
-    "gulp": "^5.0.0",
-    "prettier": "^3.5.3",
-    "rimraf": "^6.0.1",
-    "typescript": "^5.8.2"
+    "@types/node": "26.0.1",
+    "@typescript-eslint/parser": "8.62.0",
+    "eslint": "8.57.1",
+    "eslint-plugin-n8n-nodes-base": "1.16.3",
+    "gulp": "5.0.1",
+    "n8n-workflow": "2.28.1",
+    "prettier": "3.8.4",
+    "rimraf": "6.1.3",
+    "typescript": "6.0.3"
   },
   "peerDependencies": {
     "n8n-workflow": "*"

@@ -1,48 +1,28 @@
-# Dependencies
-node_modules
+# Node.js dependencies
+/node_modules
+.pnpm-store
 
-# Build outputs
-dist
+# Other package managers (this repo uses pnpm only — see SECURITY.md)
+package-lock.json
+yarn.lock
+npm-shrinkwrap.json
+bun.lock
+bun.lockb
 
-# Package files
-*.tgz
+# Build output
+/dist
+/build
+/lib
 
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Coverage directory used by tools like istanbul
-coverage
-*.lcov
-
-# Temporary folders
-.tmp
-tmp
-
-# OS generated files
+# Logs, local env, and temporary files
+*.log
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+.env
+.env.local
+.env.*.local
 
-# IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# Development scripts and raw docs (if any)
-scripts/
-docs/itglue-api/
-*.sh
+# IDE and editor files
+.vscode
+.idea
+*.sublime-project
+*.sublime-workspace

@@ -1,0 +1,55 @@
+# Publish to npm via OIDC trusted publishing (required).
+# Configure at https://www.npmjs.com/package/n8n-nodes-itglue → Settings → Publishing access → GitHub Actions.
+name: Release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.19.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.22.3'
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Supply chain check
+        run: pnpm run audit:supply-chain
+
+      - name: pnpm audit (high severity and above)
+        run: pnpm audit --audit-level=high
+
+      - name: OSV vulnerability scan (lockfile)
+        uses: google/osv-scanner-action/osv-scanner-action@v2.3.3
+        with:
+          scan-args: |-
+            --lockfile=pnpm-lock.yaml
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Lint (prepublish rules)
+        run: pnpm exec eslint -c .eslintrc.prepublish.js nodes credentials package.json
+
+      - name: Publish to npm
+        run: npm publish --provenance --access public

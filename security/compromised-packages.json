@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "updated": "2026-05-12",
+  "campaign": "Mini Shai-Hulud (TeamPCP)",
+  "references": [
+    "https://www.stepsecurity.io/blog/mini-shai-hulud-is-back-a-self-spreading-supply-chain-attack-hits-the-npm-ecosystem",
+    "https://tanstack.com/blog/npm-supply-chain-compromise-postmortem"
+  ],
+  "blocklistFiles": [
+    "compromised-packages-blocklist.json"
+  ],
+  "lockfileIndicators": [
+    "git-tanstack.com",
+    "filev2.getsession.org",
+    "seed1.getsession.org",
+    "api.masscan.cloud",
+    "setup_bun.js",
+    "router_init.js",
+    "tanstack_runner.js",
+    "transformers.pyz",
+    "router_runtime.js",
+    "shield.lock.json"
+  ],
+  "filesystemIndicators": [
+    ".claude/router_runtime.js",
+    "pgmon.service",
+    "/tmp/transformers.pyz"
+  ]
+}

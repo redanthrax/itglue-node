@@ -36,7 +36,7 @@ import {
 	IExecuteFunctions,
 	INodeType,
 	INodeTypeDescription,
-	NodeConnectionType,
+	NodeConnectionTypes,
 } from 'n8n-workflow';
 
 import { loadOptions } from './methods';
@@ -56,8 +56,8 @@ export class ITGlue implements INodeType {
 			name: 'IT Glue',
 		},
 		usableAsTool: true,
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: [NodeConnectionTypes.Main],
+		outputs: [NodeConnectionTypes.Main],
 		credentials: [
 			{
 				name: 'itglueApi',
