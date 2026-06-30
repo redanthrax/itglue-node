@@ -31,7 +31,11 @@ jobs:
         with:
           node-version: '22.22.3'
           cache: pnpm
-          registry-url: https://registry.npmjs.org
+          # Do NOT set registry-url here — it writes _authToken=${NODE_AUTH_TOKEN} to .npmrc,
+          # which can block OIDC trusted publishing and surface as a misleading 404 on publish.
+
+      - name: Upgrade npm (OIDC trusted publishing requires npm 11.5.1+)
+        run: npm install -g npm@11
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -55,4 +59,6 @@ jobs:
         run: pnpm exec eslint -c eslint.config.prepublish.mjs nodes credentials package.json
 
       - name: Publish to npm
-        run: npm publish --provenance --access public
+        run: |
+          npm --version
+          npm publish --provenance --access public
