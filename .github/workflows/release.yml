@@ -49,7 +49,7 @@ jobs:
         run: pnpm run build
 
       - name: Lint (prepublish rules)
-        run: pnpm exec eslint -c .eslintrc.prepublish.js nodes credentials package.json
+        run: pnpm exec eslint -c eslint.config.prepublish.mjs nodes credentials package.json
 
       - name: Publish to npm
         run: npm publish --provenance --access public
