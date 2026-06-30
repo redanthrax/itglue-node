@@ -3,6 +3,9 @@
 name: Release
 
 on:
+  push:
+    tags:
+      - '*.*.*'
   release:
     types: [published]
   workflow_dispatch:
