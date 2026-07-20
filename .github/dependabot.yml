@@ -14,5 +14,10 @@ updates:
     commit-message:
       prefix: chore
       include: scope
+    # typescript-eslint does not support TypeScript 7.0 yet (needs 7.1 programmatic API).
+    # See https://github.com/typescript-eslint/typescript-eslint/issues/12518
+    ignore:
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major']
     # All Dependabot PRs must pass the "Supply chain security" workflow before merge
     # (enable required status checks on master in GitHub branch protection).
