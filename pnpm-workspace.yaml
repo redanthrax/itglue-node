@@ -15,7 +15,9 @@ onlyBuiltDependencies:
 
 # Dev-only transitive packages with install scripts we intentionally skip (prebuilt or optional native).
 ignoredBuiltDependencies:
+  - cpu-features
   - eslint-plugin-n8n-nodes-base
+  - ssh2
   - unrs-resolver
 
 # Wait 24h before installing newly published versions.
