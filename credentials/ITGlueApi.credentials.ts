@@ -7,14 +7,15 @@ import {
 
 export class ITGlueApi implements ICredentialType {
 	name = 'itglueApi';
-	displayName = 'ITGlue Api Service Application Credentials API';
+	displayName = 'IT Glue API';
 	documentationUrl = 'https://github.com/redanthrax/itglue-node';
 	properties: INodeProperties[] = [
 		{
-			displayName: 'Region {region}.itglue.com',
+			displayName: 'Region',
 			name: 'region',
 			type: 'options',
 			default: 'api',
+			description: 'Select the IT Glue API region (for example api.itglue.com for US)',
 			noDataExpression: true,
 			options: [
 				{
