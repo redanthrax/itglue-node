@@ -1,39 +1,34 @@
 packages:
-  - '.'
+  - .
 
-# Supply-chain hardening (see SECURITY.md). Configured here — pnpm 10+ ignores package.json "pnpm".
-# Pin exact versions only (no >=/^/~ ranges). Bump deliberately with lockfile + audit.
-overrides:
-  lodash: '4.18.1'
-  uuid: '11.1.1'
-  minimatch: '10.2.5'
-  form-data: '4.0.6'
+blockExoticSubdeps: true
 
-# Only these packages may run install/build lifecycle scripts (Mini Shai-Hulud defense).
-onlyBuiltDependencies:
-  - isolated-vm
+engineStrict: true
 
-# Dev-only transitive packages with install scripts we intentionally skip (prebuilt or optional native).
 ignoredBuiltDependencies:
   - cpu-features
   - eslint-plugin-n8n-nodes-base
   - ssh2
   - unrs-resolver
 
-# Wait 24h before installing newly published versions.
+managePackageManagerVersions: true
+
 minimumReleaseAge: 1440
+
 minimumReleaseAgeStrict: true
 
-# Block git/tarball resolutions in transitive dependencies.
-blockExoticSubdeps: true
-
-# Fail install when a dependency has unreviewed postinstall scripts (default true; explicit for clarity).
-strictDepBuilds: true
-
-# Enforce package.json engines when resolving deps.
-engineStrict: true
-# Simulate Node 22.22.3 for dependency engines checks (matches CI and README).
 nodeVersion: 22.22.3
 
-# Require the pnpm version declared in package.json "packageManager" (pnpm 10: managePackageManagerVersions).
-managePackageManagerVersions: true
+onlyBuiltDependencies:
+  - isolated-vm
+
+overrides:
+  brace-expansion@>=4.0.0 <5.0.9: '>=5.0.9'
+  form-data: 4.0.6
+  lodash: 4.18.1
+  minimatch: 10.2.5
+  nanoid@<3.3.16: '>=3.3.16'
+  nanoid@<3.3.17: '>=3.3.17'
+  uuid: 11.1.1
+
+strictDepBuilds: true
