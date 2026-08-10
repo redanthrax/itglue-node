@@ -2,6 +2,9 @@ import {
 		IDataObject,
 		IExecuteFunctions,
 		INodeExecutionData,
+		type JsonObject,
+		NodeApiError,
+		NodeOperationError,
 } from 'n8n-workflow';
 
 import { ITGlue } from './interfaces';
@@ -298,8 +301,14 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 				if (this.continueOnFail()) {
 						operationResult.push({ json: this.getInputData(i)[0].json, error: err, pairedItem: i });
 				} else {
-						if (err.context) err.context.itemIndex = i;
-						throw err;
+						if (err instanceof NodeApiError || err instanceof NodeOperationError) {
+							err.context.itemIndex = i;
+							throw err;
+						}
+
+						throw new NodeApiError(this.getNode(), err as JsonObject, {
+							itemIndex: i,
+						});
 				}
 		}
 	}

@@ -1,5 +1,10 @@
-import { IDataObject, IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
-import { itglueRequest } from "../../../transport";
+import {
+	IDataObject,
+	IExecuteFunctions,
+	INodeExecutionData,
+	NodeOperationError,
+} from 'n8n-workflow';
+import { itglueRequest } from '../../../transport';
 
 export async function bulkUpdateOrganizations(
 	this: IExecuteFunctions,
@@ -14,12 +19,16 @@ export async function bulkUpdateOrganizations(
 
 	try {
 		organizationsData = JSON.parse(organizations);
-	} catch (error) {
-		throw new Error('Invalid JSON format for organizations data');
+	} catch {
+		throw new NodeOperationError(this.getNode(), 'Invalid JSON format for organizations data', {
+			itemIndex: index,
+		});
 	}
 
 	if (!Array.isArray(organizationsData)) {
-		throw new Error('Organizations data must be an array');
+		throw new NodeOperationError(this.getNode(), 'Organizations data must be an array', {
+			itemIndex: index,
+		});
 	}
 
 	// Transform the data to IT Glue API format

@@ -7,6 +7,7 @@ import {
 	IHttpRequestOptions,
 	ILoadOptionsFunctions,
 	IPollFunctions,
+	type JsonObject,
 	NodeOperationError,
 	NodeApiError,
 } from 'n8n-workflow';
@@ -56,7 +57,7 @@ export async function itglueRequest(
 				'Rate limit exceeded. IT Glue is throttling requests. Please try again later.',
 			);
 		}
-		throw error;
+		throw new NodeApiError(this.getNode(), error as JsonObject);
 	}
 }
 
