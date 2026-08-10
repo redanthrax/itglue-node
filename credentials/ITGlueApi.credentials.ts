@@ -3,11 +3,16 @@ import {
 		ICredentialTestRequest,
 		ICredentialType,
 		INodeProperties,
-} from 'n8n-workflow';
+		type Icon,
+	} from 'n8n-workflow';
 
 export class ITGlueApi implements ICredentialType {
 	name = 'itglueApi';
 	displayName = 'IT Glue API';
+	icon: Icon = {
+		light: 'file:itglue.svg',
+		dark: 'file:itglue-dark.svg',
+	};
 	documentationUrl = 'https://github.com/redanthrax/itglue-node';
 	properties: INodeProperties[] = [
 		{

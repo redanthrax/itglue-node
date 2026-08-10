@@ -46,7 +46,10 @@ export class ITGlue implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'IT Glue',
 		name: 'iTGlue',
-		icon: 'file:itglue.svg',
+		icon: {
+			light: 'file:itglue.svg',
+			dark: 'file:itglue-dark.svg',
+		},
 		group: ['transform'],
 		version: 1,
 		documentationUrl: 'https://github.com/redanthrax/itglue-node',
