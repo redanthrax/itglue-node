@@ -27,7 +27,7 @@
   "main": "index.js",
   "scripts": {
     "audit:supply-chain": "node scripts/check-supply-chain.mjs",
-    "build": "pnpm exec rimraf dist && pnpm exec tsc && pnpm exec gulp build:icons",
+    "build": "pnpm exec rimraf dist && pnpm exec tsc && node scripts/copy-icons.mjs",
     "dev": "pnpm exec tsc --watch",
     "format": "pnpm exec prettier nodes credentials --write",
     "lint": "pnpm exec eslint nodes credentials package.json",
@@ -53,7 +53,6 @@
     "@types/node": "26.6.5",
     "@typescript-eslint/parser": "8.71.1",
     "eslint": "10.12.0",
-    "gulp": "5.0.1",
     "n8n-workflow": "2.34.1",
     "prettier": "3.9.10",
     "rimraf": "6.1.3",
