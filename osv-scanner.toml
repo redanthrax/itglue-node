@@ -1,0 +1,15 @@
+# OSV-Scanner configuration (used by .github/workflows/supply-chain.yml).
+#
+# Only dev-only, unshipped transitive findings may be ignored here, and every entry
+# needs a reason and an expiry.
+
+[[IgnoredVulns]]
+id = "GHSA-mrhx-c7xc-m3w5"
+ignoreUntil = 2027-01-24
+reason = """
+zod <4.6.6 (memory exhaustion on oversized constrained collections). zod 3.x is a
+dev-only peer of n8n-workflow, never shipped (package.json "files" excludes it), and
+n8n-workflow still requires zod 3, for which no patched release exists.
+Also ignored for pnpm audit via auditConfig.ignoreGhsas in pnpm-workspace.yaml.
+Drop both entries once n8n-workflow moves to zod >=4.6.6.
+"""
