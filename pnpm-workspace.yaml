@@ -33,6 +33,8 @@ overrides:
   axios@>=1.17.0 <1.20.0: '>=1.20.0'
   axios@>=1.7.0 <1.20.0: '>=1.20.0'
   brace-expansion@>=4.0.0 <5.0.9: '>=5.0.9'
+  # GHSA-8r9p-f939-6h3c, GHSA-q3jh-wrc6-jgq8 (header leak on redirect) — dev-only via n8n-workflow > axios
+  follow-redirects: 1.16.1
   form-data: 4.0.6
   lodash: 4.18.1
   minimatch: 10.2.5
@@ -41,3 +43,10 @@ overrides:
   uuid: 11.1.1
 
 strictDepBuilds: true
+
+# pnpm audit exceptions — same policy as osv-scanner.toml: dev-only, unshipped, no fix available.
+auditConfig:
+  ignoreGhsas:
+    # zod <4.6.6 memory exhaustion; zod 3.x has no patched release. Dev-only peer of
+    # n8n-workflow, never shipped. Revisit by 2027-01-24 or once n8n-workflow moves to zod >=4.6.6.
+    - GHSA-mrhx-c7xc-m3w5

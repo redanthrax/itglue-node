@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 /**
  * Scans pnpm-lock.yaml for Mini Shai-Hulud (and related) compromised versions
- * and suspicious install-script / C2 indicators.
+ * and suspicious install-script / C2 indicators, and queries OSV for known
+ * malicious (MAL-) records on every locked package.
+ *
+ * Set SUPPLY_CHAIN_OFFLINE=1 to skip the OSV query (static blocklist only).
  */
 import { readFileSync, existsSync } from 'node:fs';
 import { execSync } from 'node:child_process';
@@ -23,6 +26,10 @@ const REQUIRED_WORKSPACE_SETTINGS = [
 	'onlyBuiltDependencies:',
 	'overrides:',
 ];
+
+const OSV_QUERYBATCH_URL = 'https://api.osv.dev/v1/querybatch';
+const OSV_BATCH_SIZE = 1000;
+const OSV_TIMEOUT_MS = 30_000;
 
 const FORBIDDEN_LOCKFILES = ['package-lock.json', 'yarn.lock', 'npm-shrinkwrap.json', 'bun.lockb', 'bun.lock'];
 
@@ -195,7 +202,63 @@ function parseLockfilePackages(lockfile) {
 	return packages;
 }
 
-function main() {
+function uniquePackages(installed) {
+	const seen = new Map();
+	for (const { name, version } of installed) {
+		// Snapshot keys carry peer suffixes, e.g. 1.3.1(keyv@5.6.0)
+		const bare = version.split('(')[0];
+		seen.set(`${name}@${bare}`, { name, version: bare });
+	}
+	return [...seen.values()];
+}
+
+async function queryOsvBatch(queries) {
+	const response = await fetch(OSV_QUERYBATCH_URL, {
+		method: 'POST',
+		headers: { 'content-type': 'application/json' },
+		body: JSON.stringify({ queries }),
+		signal: AbortSignal.timeout(OSV_TIMEOUT_MS),
+	});
+	if (!response.ok) {
+		throw new Error(`OSV returned HTTP ${response.status}`);
+	}
+	return (await response.json()).results ?? [];
+}
+
+async function findOsvMalicious(packages) {
+	const errors = [];
+
+	let pending = packages.map((pkg) => ({ pkg, pageToken: undefined }));
+	while (pending.length) {
+		const next = [];
+		for (let i = 0; i < pending.length; i += OSV_BATCH_SIZE) {
+			const chunk = pending.slice(i, i + OSV_BATCH_SIZE);
+			const results = await queryOsvBatch(
+				chunk.map(({ pkg, pageToken }) => ({
+					package: { name: pkg.name, ecosystem: 'npm' },
+					version: pkg.version,
+					...(pageToken ? { page_token: pageToken } : {}),
+				})),
+			);
+			results.forEach((result, j) => {
+				const { pkg } = chunk[j];
+				for (const vuln of result.vulns ?? []) {
+					if (vuln.id.startsWith('MAL-')) {
+						errors.push(`OSV malicious package: ${pkg.name}@${pkg.version} (${vuln.id})`);
+					}
+				}
+				if (result.next_page_token) {
+					next.push({ pkg, pageToken: result.next_page_token });
+				}
+			});
+		}
+		pending = next;
+	}
+
+	return errors;
+}
+
+async function main() {
 	const errors = [];
 	const warnings = [];
 
@@ -226,6 +289,25 @@ function main() {
 		}
 	}
 
+	const unique = uniquePackages(installed);
+	let osvSummary;
+	if (process.env.SUPPLY_CHAIN_OFFLINE === '1') {
+		warnings.push(
+			'SUPPLY_CHAIN_OFFLINE=1 — skipped OSV malicious-package query (static blocklist only)',
+		);
+		osvSummary = 'OSV skipped';
+	} else {
+		try {
+			errors.push(...(await findOsvMalicious(unique)));
+			osvSummary = `${unique.length} packages checked against OSV`;
+		} catch (error) {
+			// Fail closed: an unreachable OSV must not look like a clean result
+			errors.push(
+				`OSV malicious-package query failed: ${error.message} (set SUPPLY_CHAIN_OFFLINE=1 to run without it)`,
+			);
+		}
+	}
+
 	if (!existsSync(resolve(root, 'node_modules'))) {
 		warnings.push('node_modules not present — run pnpm install before relying on local install checks');
 	}
@@ -251,8 +333,8 @@ function main() {
 	}
 
 	console.log(
-		`Supply chain check passed (${installed.length} locked packages, ${packageCount} blocklist entries from ${blocklistFileCount || 1} file(s), updated ${blocklist.updated}).`,
+		`Supply chain check passed (${installed.length} locked packages, ${packageCount} blocklist entries from ${blocklistFileCount || 1} file(s), updated ${blocklist.updated}; ${osvSummary}).`,
 	);
 }
 
-main();
+await main();

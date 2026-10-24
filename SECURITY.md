@@ -10,7 +10,7 @@ This repository uses defenses against npm supply-chain worms such as **Mini Shai
 - **Frozen lockfile** — `pnpm-lock.yaml` is committed; CI uses `pnpm install --frozen-lockfile`.
 - **pnpm workspace config** — supply-chain settings live in `pnpm-workspace.yaml` (pnpm 10+ ignores `package.json` → `pnpm`).
 - **Blocked install scripts** — only packages in `pnpm-workspace.yaml` → `onlyBuiltDependencies` may run lifecycle scripts. Other packages with scripts are listed in `ignoredBuiltDependencies`. `strictDepBuilds: true` fails on unreviewed scripts.
-- **Blocklist scan** — `pnpm run audit:supply-chain` checks the lockfile against `security/compromised-packages.json` and validates pnpm config.
+- **Blocklist scan** — `pnpm run audit:supply-chain` checks the lockfile against `security/compromised-packages.json`, queries [OSV](https://osv.dev) for malicious-package (`MAL-`) records on every locked package, and validates pnpm config. The OSV query needs network access and fails closed; set `SUPPLY_CHAIN_OFFLINE=1` to run with the static blocklist only.
 - **Delayed updates** — `minimumReleaseAge` (24h, strict) reduces exposure to freshly published malicious versions.
 - **No exotic transitive deps** — `blockExoticSubdeps` blocks git/tarball transitive resolutions.
 - **Version overrides** — CVE mitigations use **exact pins** in `pnpm-workspace.yaml` (for example `lodash`, `uuid`, `minimatch`, `form-data`). Do not use `>=`/`^`/`~` ranges in overrides; bump versions deliberately with an updated lockfile and passing audit.
@@ -54,9 +54,10 @@ Check for persistence artifacts: `.claude/router_runtime.js`, malicious `.vscode
 
 ### Blocklist maintenance
 
-- Full Mini Shai-Hulud package list: `security/compromised-packages-blocklist.json`.
+- Malicious versions from new campaigns (e.g. the August 2026 keyv/cacheable "ChainDrop" worm) are picked up automatically through the OSV query; no list update is needed for those.
+- Offline fallback list (May 2026 Mini Shai-Hulud only): `security/compromised-packages-blocklist.json`.
 - IOC strings and metadata: `security/compromised-packages.json`.
-- After new advisories, update the blocklist JSON and run `pnpm run audit:supply-chain`.
+- Add lockfile IOC strings for new campaigns to `lockfileIndicators`, then run `pnpm run audit:supply-chain`.
 
 ### Reporting vulnerabilities
 
